@@ -1,0 +1,2712 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS vs Tailwind — guía visual</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f4f4f5;
+      margin: 0;
+      padding: 0;
+      color: #3f3f46;
+    }
+
+    /* NAV */
+    .topnav {
+      background: white;
+      border-bottom: 1px solid #e4e4e7;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .topnav-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+    }
+    .topnav-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #18181b;
+      margin-right: 32px;
+      padding: 16px 0;
+      white-space: nowrap;
+    }
+    .tab {
+      font-size: 13px;
+      font-weight: 500;
+      color: #71717a;
+      padding: 16px 16px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      white-space: nowrap;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      transition: color 150ms;
+    }
+    .tab:hover { color: #3f3f46; }
+    .tab.active { color: #18181b; border-bottom-color: #2563eb; font-weight: 600; }
+
+    /* STEPS */
+    .step { display: none; padding: 40px; max-width: 960px; margin: 0 auto; }
+    .step.active { display: block; }
+
+    /* SECTION */
+    .section {
+      background: white;
+      border-radius: 10px;
+      border: 1px solid #e4e4e7;
+      padding: 24px 28px;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #18181b;
+      margin: 0 0 4px 0;
+      letter-spacing: -0.015em;
+      line-height: 1.3;
+    }
+    .section-sub {
+      font-size: 13px;
+      color: #71717a;
+      margin: 0 0 20px 0;
+      line-height: 1.6;
+    }
+
+    /* JERARQUÍA TIPOGRÁFICA INTERNA */
+    /* Nivel 2 — subtítulo de subsección dentro de una card */
+    .sub-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #18181b;
+      margin: 0 0 6px 0;
+      letter-spacing: -0.01em;
+    }
+    /* Nivel 3 — label sobre un demo o grupo */
+    .group-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #71717a;
+      margin: 0 0 8px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    /* Nivel 4 — label mono debajo de demos */
+    .demo-label {
+      font-size: 11px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      color: #71717a;
+      margin-bottom: 4px;
+    }
+
+    /* TABLA TRADUCCIÓN */
+    .translation-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .translation-table th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #a1a1aa;
+      padding: 0 12px 10px 0;
+      border-bottom: 1px solid #e4e4e7;
+    }
+    .translation-table td {
+      padding: 10px 12px 10px 0;
+      border-bottom: 1px solid #f4f4f5;
+      vertical-align: top;
+      color: #3f3f46;
+      line-height: 1.4;
+    }
+    .translation-table tr:last-child td { border-bottom: none; }
+    .translation-table td:first-child { color: #18181b; font-weight: 500; }
+    code {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 11.5px;
+      background: #f4f4f5;
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #18181b;
+    }
+    .code-tw  { background: #f4f4f5; color: #3f3f46; }
+    .code-css { background: #dbeafe; color: #1e40af; }
+
+    /* ESCALA VISUAL */
+    .scale-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .scale-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .scale-label {
+      font-size: 10px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      color: #71717a;
+      text-align: center;
+    }
+    .scale-label strong {
+      display: block;
+      font-size: 11px;
+      color: #18181b;
+    }
+
+    /* SPACING DEMO */
+    .spacing-explainer {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    .spacing-box-wrap { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .spacing-box-label { font-size: 12px; font-weight: 600; color: #52525b; }
+    .px-demo {
+      width: 120px;
+      height: 48px;
+      background: #dbeafe;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+    .px-demo .inner {
+      background: #2563eb;
+      height: 100%;
+      border-radius: 3px;
+      flex: 1;
+      margin: 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .px-demo .pad-label {
+      position: absolute;
+      font-size: 10px;
+      font-weight: 600;
+      color: #1e40af;
+      font-family: 'SF Mono', monospace;
+    }
+    .px-demo .pad-label.left { left: 3px; }
+    .px-demo .pad-label.right { right: 3px; }
+
+    .py-demo {
+      width: 80px;
+      height: 100px;
+      background: #d1fae5;
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    .py-demo .inner {
+      background: #059669;
+      width: 100%;
+      border-radius: 3px;
+      flex: 1;
+      margin: 12px 0;
+    }
+    .py-demo .pad-label {
+      position: absolute;
+      font-size: 10px;
+      font-weight: 600;
+      color: #065f46;
+      font-family: 'SF Mono', monospace;
+    }
+    .py-demo .pad-label.top { top: 3px; }
+    .py-demo .pad-label.bottom { bottom: 3px; }
+
+    .p-demo {
+      width: 100px;
+      height: 80px;
+      background: #fef9c3;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .p-demo .inner {
+      background: #ca8a04;
+      width: calc(100% - 24px);
+      height: calc(100% - 24px);
+      border-radius: 3px;
+    }
+    .p-demo .pad-label {
+      position: absolute;
+      font-size: 9px;
+      font-weight: 600;
+      color: #854d0e;
+      font-family: 'SF Mono', monospace;
+    }
+    .p-demo .pad-label.top    { top: 2px; left: 50%; transform: translateX(-50%); }
+    .p-demo .pad-label.bottom { bottom: 2px; left: 50%; transform: translateX(-50%); }
+    .p-demo .pad-label.left   { left: 2px; top: 50%; transform: translateY(-50%); }
+    .p-demo .pad-label.right  { right: 2px; top: 50%; transform: translateY(-50%); }
+
+    .spacing-scale-visual {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      margin-top: 16px;
+    }
+
+    /* COLORES */
+    .color-scale {
+      display: flex;
+      gap: 4px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .swatch {
+      width: 36px;
+      height: 36px;
+      border-radius: 6px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 2px;
+    }
+    .swatch-label {
+      font-size: 9px;
+      font-weight: 600;
+      font-family: 'SF Mono', monospace;
+      color: rgba(0,0,0,0.35);
+    }
+    .swatch-dark .swatch-label { color: rgba(255,255,255,0.5); }
+
+    /* RADII */
+    .radii-scale {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .radii-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .radii-box {
+      width: 48px;
+      height: 48px;
+      background: #dbeafe;
+      border: 2px solid #2563eb;
+    }
+
+    /* SHADOWS */
+    .shadow-scale {
+      display: flex;
+      gap: 24px;
+      align-items: flex-end;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    .shadow-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .shadow-box {
+      width: 64px;
+      height: 40px;
+      background: white;
+      border-radius: 6px;
+    }
+
+    /* TIPOGRAFÍA */
+    .type-scale { margin-top: 12px; }
+    .type-row {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      padding: 8px 0;
+      border-bottom: 1px solid #f4f4f5;
+    }
+    .type-row:last-child { border-bottom: none; }
+    .type-meta {
+      width: 180px;
+      flex-shrink: 0;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    /* COLUMNAS COMPARACIÓN */
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+    }
+    .col {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid #e4e4e7;
+    }
+    .col h2 {
+      font-size: 12px;
+      font-weight: 600;
+      color: #71717a;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin: 0 0 4px 0;
+    }
+    .col p { font-size: 13px; color: #52525b; margin: 0 0 16px 0; line-height: 1.5; }
+    .demo {
+      padding: 20px;
+      background: #fafafa;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      border: 1px solid #e4e4e7;
+    }
+    .step pre {
+      font-size: 12px;
+      background: #18181b;
+      color: #e4e4e7;
+      padding: 14px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 0;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    .tag-css  { background: #dbeafe; color: #1d4ed8; }
+    .tag-tw   { background: #d1fae5; color: #065f46; }
+    .tag-both { background: #fef9c3; color: #854d0e; }
+    .note {
+      font-size: 12px;
+      color: #71717a;
+      margin-top: 12px;
+      line-height: 1.5;
+      padding: 10px 12px;
+      background: #f4f4f5;
+      border-radius: 6px;
+    }
+    .note strong { color: #3f3f46; }
+    .files { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
+    .files-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; color: #a1a1aa; font-weight: 600; margin-bottom: 2px; }
+    .file {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 500;
+      font-family: 'SF Mono', monospace;
+      padding: 3px 8px; border-radius: 5px;
+      background: #f4f4f5; border: 1px solid #e4e4e7;
+      color: #3f3f46; width: fit-content;
+    }
+    .file-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    .dot-html { background: #f59e0b; }
+    .dot-css  { background: #3b82f6; }
+
+    /* TOKENS STEP */
+    .token-demo {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      margin-top: 16px;
+    }
+    .token-card {
+      flex: 1;
+      min-width: 220px;
+      background: #fafafa;
+      border: 1px solid #e4e4e7;
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .token-card-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #a1a1aa;
+      margin-bottom: 12px;
+    }
+    .token-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      padding: 4px 0;
+      border-bottom: 1px solid #f4f4f5;
+    }
+    .token-row:last-child { border-bottom: none; }
+    .token-name { font-family: 'SF Mono', monospace; color: #3f3f46; }
+    .token-val  { color: #71717a; }
+    .token-swatch {
+      width: 16px; height: 16px;
+      border-radius: 3px;
+      border: 1px solid rgba(0,0,0,0.08);
+      flex-shrink: 0;
+    }
+
+    .btn-css {
+      display: inline-flex; align-items: center; justify-content: center;
+      height: 36px; padding: 0 16px; border-radius: 6px;
+      border: 1px solid transparent; font-size: 14px; font-weight: 500;
+      line-height: 1; cursor: pointer; text-decoration: none;
+      background: var(--btn-bg, #2563eb);
+      color: var(--btn-color, #fff);
+      transition: background 150ms;
+    }
+    .btn-css:hover { background: var(--btn-hover, #1d4ed8); }
+
+    .step h1 { font-size: 22px; font-weight: 700; margin: 0 0 6px 0; color: #18181b; letter-spacing: -0.02em; line-height: 1.2; }
+    .step .page-sub { font-size: 14px; color: #71717a; margin: 0 0 28px 0; line-height: 1.6; font-weight: 400; }
+
+    .info-box {
+      background: #eff6ff;
+      border-left: 3px solid #2563eb;
+      border-radius: 0 8px 8px 0;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #1e40af;
+      line-height: 1.5;
+      margin-top: 16px;
+    }
+    .info-box strong { color: #1e3a8a; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="topnav">
+    <div class="topnav-inner">
+      <div class="topnav-title">Aprendiendo frontend</div>
+      <button class="tab active" onclick="showStep(0, this)">1 · Intro</button>
+      <button class="tab" onclick="showStep(1, this)">2 · CSS vs Tailwind</button>
+      <button class="tab" onclick="showStep(2, this)">3 · Tokens</button>
+      <button class="tab" onclick="showStep(3, this)">4 · Layout</button>
+      <button class="tab" onclick="showStep(4, this)">5 · React & frameworks</button>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       STEP 0 — LA ESCALA DE TAILWIND
+  ============================================================ -->
+  <div class="step active" id="step-0">
+    <h1>Del vocabulario de diseño al código</h1>
+    <p class="page-sub">Cómo se llama lo mismo en cada sistema.</p>
+
+    <!-- TABLA TRADUCCIÓN -->
+    <div class="section">
+      <div class="section-title">Comparemos términos básicos</div>
+      <div class="section-sub">Cómo se llama lo mismo en cada sistema.</div>
+
+      <table class="translation-table">
+        <thead>
+          <tr>
+            <th style="width:110px">Visual</th>
+            <th style="width:14%">En diseño decís</th>
+            <th style="width:13%">En CSS es</th>
+            <th style="width:15%">En Tailwind es</th>
+            <th>Ejemplos representativos <span style="font-weight:400;text-transform:none;letter-spacing:0;color:#c4b5a0;font-size:10px">— la escala completa de cada propiedad está en las secciones de abajo</span></th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- Familia tipográfica -->
+          <tr>
+            <td>
+              <div style="display:flex;gap:8px;align-items:baseline">
+                <span style="font-family:sans-serif;font-size:18px;font-weight:600;color:#18181b">Aa</span>
+                <span style="font-family:Georgia,serif;font-size:18px;font-weight:400;color:#71717a">Aa</span>
+                <span style="font-family:monospace;font-size:16px;color:#a1a1aa">Aa</span>
+              </div>
+            </td>
+            <td>Familia tipográfica</td>
+            <td><code class="code-css">font-family</code><br><span style="font-size:11px;color:#a1a1aa;font-family:monospace">font-family: 'Inter', sans-serif</span></td>
+            <td><code class="code-tw">font-{name}</code></td>
+            <td>
+              <code class="code-tw">font-sans</code>
+              <code class="code-tw">font-serif</code>
+              <code class="code-tw">font-mono</code>
+            </td>
+          </tr>
+
+          <!-- Tamaño de texto -->
+          <tr>
+            <td>
+              <div style="display:flex;gap:5px;align-items:baseline">
+                <span style="font-size:10px;color:#18181b;font-weight:500">a</span>
+                <span style="font-size:13px;color:#18181b;font-weight:500">a</span>
+                <span style="font-size:16px;color:#18181b;font-weight:500">a</span>
+                <span style="font-size:20px;color:#18181b;font-weight:500">a</span>
+                <span style="font-size:26px;color:#18181b;font-weight:500">a</span>
+              </div>
+            </td>
+            <td>Tamaño de texto</td>
+            <td><code class="code-css">font-size</code><br><span style="font-size:11px;color:#a1a1aa;font-family:monospace">font-size: 14px</span></td>
+            <td><code class="code-tw">text-{size}</code></td>
+            <td>
+              <code class="code-tw">text-xs</code> 12px ·
+              <code class="code-tw">text-sm</code> 14px ·
+              <code class="code-tw">text-base</code> 16px ·
+              <code class="code-tw">text-lg</code> 18px ·
+              <code class="code-tw">text-xl</code> 20px ·
+              <code class="code-tw">text-2xl</code> 24px ·
+              <code class="code-tw">text-3xl</code> 30px ·
+              <code class="code-tw">text-4xl</code> 36px
+            </td>
+          </tr>
+
+          <!-- Peso tipográfico -->
+          <tr>
+            <td>
+              <div style="display:flex;flex-direction:column;gap:1px">
+                <span style="font-size:13px;font-weight:300;color:#18181b;line-height:1.3">Texto</span>
+                <span style="font-size:13px;font-weight:500;color:#18181b;line-height:1.3">Texto</span>
+                <span style="font-size:13px;font-weight:700;color:#18181b;line-height:1.3">Texto</span>
+              </div>
+            </td>
+            <td>Peso tipográfico</td>
+            <td><code class="code-css">font-weight</code><br><span style="font-size:11px;color:#a1a1aa;font-family:monospace">font-weight: 500</span></td>
+            <td><code class="code-tw">font-{weight}</code></td>
+            <td>
+              <code class="code-tw">font-thin</code> 100 ·
+              <code class="code-tw">font-light</code> 300 ·
+              <code class="code-tw">font-normal</code> 400 ·
+              <code class="code-tw">font-medium</code> 500 ·
+              <code class="code-tw">font-semibold</code> 600 ·
+              <code class="code-tw">font-bold</code> 700 ·
+              <code class="code-tw">font-extrabold</code> 800
+            </td>
+          </tr>
+
+          <!-- Color de texto -->
+          <tr>
+            <td>
+              <div style="display:flex;flex-direction:column;gap:2px">
+                <span style="font-size:13px;font-weight:500;color:#a1a1aa">Texto</span>
+                <span style="font-size:13px;font-weight:500;color:#52525b">Texto</span>
+                <span style="font-size:13px;font-weight:500;color:#18181b">Texto</span>
+                <span style="font-size:13px;font-weight:500;color:#2563eb">Texto</span>
+              </div>
+            </td>
+            <td>Color de texto</td>
+            <td><code class="code-css">color</code><br><span style="font-size:11px;color:#a1a1aa;font-family:monospace">color: #18181b</span></td>
+            <td><code class="code-tw">text-{color}-{step}</code></td>
+            <td>
+              <code class="code-tw">text-zinc-400</code> secundario ·
+              <code class="code-tw">text-zinc-600</code> medio ·
+              <code class="code-tw">text-zinc-900</code> principal ·
+              <code class="code-tw">text-blue-600</code> accent ·
+              <code class="code-tw">text-white</code>
+            </td>
+          </tr>
+
+          <!-- Interlineado -->
+          <tr>
+            <td>
+              <div style="display:flex;gap:8px;align-items:flex-start">
+                <div style="font-size:10px;line-height:1.1;color:#18181b;width:40px">línea<br>dos<br>tres</div>
+                <div style="font-size:10px;line-height:1.8;color:#71717a;width:40px">línea<br>dos<br>tres</div>
+              </div>
+            </td>
+            <td>Interlineado</td>
+            <td><code class="code-css">line-height</code><br><span style="font-size:11px;color:#a1a1aa;font-family:monospace">line-height: 1.5</span></td>
+            <td><code class="code-tw">leading-{name}</code></td>
+            <td>
+              <code class="code-tw">leading-none</code> 1 ·
+              <code class="code-tw">leading-tight</code> 1.25 ·
+              <code class="code-tw">leading-snug</code> 1.375 ·
+              <code class="code-tw">leading-normal</code> 1.5 ·
+              <code class="code-tw">leading-relaxed</code> 1.625 ·
+              <code class="code-tw">leading-loose</code> 2
+            </td>
+          </tr>
+
+          <!-- Corner radius -->
+          <tr>
+            <td>
+              <div style="display:flex;gap:5px;align-items:center">
+                <div style="width:22px;height:22px;background:#dbeafe;border:2px solid #2563eb;border-radius:2px"></div>
+                <div style="width:22px;height:22px;background:#dbeafe;border:2px solid #2563eb;border-radius:6px"></div>
+                <div style="width:22px;height:22px;background:#dbeafe;border:2px solid #2563eb;border-radius:12px"></div>
+                <div style="width:22px;height:22px;background:#dbeafe;border:2px solid #2563eb;border-radius:9999px"></div>
+              </div>
+            </td>
+            <td>Corner radius</td>
+            <td><code class="code-css">border-radius</code><br><span style="font-size:11px;color:#a1a1aa;font-family:monospace">border-radius: 6px</span></td>
+            <td><code class="code-tw">rounded-{size}</code></td>
+            <td>
+              <code class="code-tw">rounded-sm</code> 2px ·
+              <code class="code-tw">rounded</code> 4px ·
+              <code class="code-tw">rounded-md</code> 6px ·
+              <code class="code-tw">rounded-lg</code> 8px ·
+              <code class="code-tw">rounded-xl</code> 12px ·
+              <code class="code-tw">rounded-2xl</code> 16px ·
+              <code class="code-tw">rounded-full</code> píldora
+            </td>
+          </tr>
+
+          <!-- Padding -->
+          <tr>
+            <td>
+              <div style="display:flex;gap:4px;align-items:flex-end">
+                <div style="background:#dbeafe;border-radius:3px;padding:2px;display:flex;align-items:center;justify-content:center">
+                  <div style="width:12px;height:12px;background:#2563eb;border-radius:2px"></div>
+                </div>
+                <div style="background:#dbeafe;border-radius:3px;padding:5px;display:flex;align-items:center;justify-content:center">
+                  <div style="width:12px;height:12px;background:#2563eb;border-radius:2px"></div>
+                </div>
+                <div style="background:#dbeafe;border-radius:3px;padding:10px;display:flex;align-items:center;justify-content:center">
+                  <div style="width:12px;height:12px;background:#2563eb;border-radius:2px"></div>
+                </div>
+              </div>
+            </td>
+            <td>Padding</td>
+            <td><code class="code-css">padding</code><br><span style="font-size:11px;color:#a1a1aa;font-family:monospace">padding: 0 16px</span></td>
+            <td><code class="code-tw">p-{n}</code> todos · <code class="code-tw">px-{n}</code> horiz · <code class="code-tw">py-{n}</code> vert · <code class="code-tw">pt/pb/pl/pr</code></td>
+            <td>
+              <code class="code-tw">p-1</code> 4px ·
+              <code class="code-tw">p-2</code> 8px ·
+              <code class="code-tw">p-3</code> 12px ·
+              <code class="code-tw">p-4</code> 16px ·
+              <code class="code-tw">p-6</code> 24px ·
+              <code class="code-tw">p-8</code> 32px ·
+              <code class="code-tw">p-12</code> 48px
+            </td>
+          </tr>
+
+          <!-- Gap -->
+          <tr>
+            <td>
+              <div style="display:flex;flex-direction:column;gap:2px">
+                <div style="display:flex;gap:2px">
+                  <div style="width:12px;height:10px;background:#d1fae5;border-radius:2px"></div>
+                  <div style="width:12px;height:10px;background:#d1fae5;border-radius:2px"></div>
+                  <div style="width:12px;height:10px;background:#d1fae5;border-radius:2px"></div>
+                </div>
+                <div style="display:flex;gap:8px">
+                  <div style="width:12px;height:10px;background:#059669;border-radius:2px"></div>
+                  <div style="width:12px;height:10px;background:#059669;border-radius:2px"></div>
+                  <div style="width:12px;height:10px;background:#059669;border-radius:2px"></div>
+                </div>
+              </div>
+            </td>
+            <td>Espacio entre elementos</td>
+            <td><code class="code-css">gap</code><br><span style="font-size:11px;color:#a1a1aa;font-family:monospace">gap: 16px</span></td>
+            <td><code class="code-tw">gap-{n}</code></td>
+            <td>
+              <code class="code-tw">gap-1</code> 4px ·
+              <code class="code-tw">gap-2</code> 8px ·
+              <code class="code-tw">gap-3</code> 12px ·
+              <code class="code-tw">gap-4</code> 16px ·
+              <code class="code-tw">gap-6</code> 24px ·
+              <code class="code-tw">gap-8</code> 32px
+            </td>
+          </tr>
+
+          <!-- Color de fondo -->
+          <tr>
+            <td>
+              <div style="display:flex;gap:4px;align-items:center">
+                <div style="width:22px;height:22px;border-radius:4px;background:#ffffff;border:1px solid #e4e4e7"></div>
+                <div style="width:22px;height:22px;border-radius:4px;background:#f4f4f5"></div>
+                <div style="width:22px;height:22px;border-radius:4px;background:#e4e4e7"></div>
+                <div style="width:22px;height:22px;border-radius:4px;background:#2563eb"></div>
+              </div>
+            </td>
+            <td>Color de fondo</td>
+            <td><code class="code-css">background-color</code><br><span style="font-size:11px;color:#a1a1aa;font-family:monospace">background: #2563eb</span></td>
+            <td><code class="code-tw">bg-{color}-{step}</code></td>
+            <td>
+              <code class="code-tw">bg-white</code> ·
+              <code class="code-tw">bg-zinc-50</code> ·
+              <code class="code-tw">bg-zinc-100</code> ·
+              <code class="code-tw">bg-zinc-200</code> ·
+              <code class="code-tw">bg-blue-50</code> ·
+              <code class="code-tw">bg-blue-100</code> ·
+              <code class="code-tw">bg-blue-600</code>
+            </td>
+          </tr>
+
+          <!-- Color de borde -->
+          <tr>
+            <td>
+              <div style="display:flex;gap:4px;align-items:center">
+                <div style="width:22px;height:22px;border-radius:4px;border:2px solid #e4e4e7"></div>
+                <div style="width:22px;height:22px;border-radius:4px;border:2px solid #a1a1aa"></div>
+                <div style="width:22px;height:22px;border-radius:4px;border:2px solid #2563eb"></div>
+              </div>
+            </td>
+            <td>Color de borde</td>
+            <td><code class="code-css">border-color</code><br><span style="font-size:11px;color:#a1a1aa;font-family:monospace">border: 1px solid #e4e4e7</span></td>
+            <td><code class="code-tw">border-{color}-{step}</code></td>
+            <td>
+              <code class="code-tw">border-zinc-100</code> ·
+              <code class="code-tw">border-zinc-200</code> sutil ·
+              <code class="code-tw">border-zinc-300</code> ·
+              <code class="code-tw">border-zinc-400</code> medio ·
+              <code class="code-tw">border-blue-300</code> ·
+              <code class="code-tw">border-blue-600</code> accent
+            </td>
+          </tr>
+
+          <!-- Sombra -->
+          <tr>
+            <td>
+              <div style="display:flex;gap:6px;align-items:center;padding:4px 0">
+                <div style="width:22px;height:18px;background:white;border-radius:3px;box-shadow:0 1px 2px rgba(0,0,0,0.08)"></div>
+                <div style="width:22px;height:18px;background:white;border-radius:3px;box-shadow:0 2px 6px rgba(0,0,0,0.12)"></div>
+                <div style="width:22px;height:18px;background:white;border-radius:3px;box-shadow:0 6px 16px rgba(0,0,0,0.14)"></div>
+                <div style="width:22px;height:18px;background:white;border-radius:3px;box-shadow:0 12px 28px rgba(0,0,0,0.16)"></div>
+              </div>
+            </td>
+            <td>Sombra</td>
+            <td><code class="code-css">box-shadow</code><br><span style="font-size:11px;color:#a1a1aa;font-family:monospace">box-shadow: 0 4px 6px rgb(0 0 0 / 0.1)</span></td>
+            <td><code class="code-tw">shadow-{size}</code></td>
+            <td>
+              <code class="code-tw">shadow-sm</code> ·
+              <code class="code-tw">shadow</code> ·
+              <code class="code-tw">shadow-md</code> ·
+              <code class="code-tw">shadow-lg</code> ·
+              <code class="code-tw">shadow-xl</code> ·
+              <code class="code-tw">shadow-2xl</code> ·
+              <code class="code-tw">shadow-none</code>
+            </td>
+          </tr>
+
+          <!-- Íconos -->
+          <tr>
+            <td>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+              </svg>
+            </td>
+            <td>Íconos</td>
+            <td style="color:#a1a1aa;font-style:italic">no es CSS</td>
+            <td style="color:#a1a1aa;font-style:italic">no incluye</td>
+            <td style="color:#71717a">Librería externa — <strong>Lucide</strong> (default), Heroicons (si usás Tailwind), Phosphor (multi-estilo). Se importan como SVG o componente React.</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SPACING -->
+    <div class="section">
+      <div class="section-title">Spacing — p, px, py y la escala numérica</div>
+      <div class="section-sub">La <code>p</code> es <em>padding</em>. La letra que sigue indica la dirección. El número es el paso en la escala (no píxeles).</div>
+
+      <div class="spacing-explainer">
+        <div class="spacing-box-wrap">
+          <div class="spacing-box-label"><code class="code-tw">px-4</code> — horizontal</div>
+          <div class="px-demo">
+            <span class="pad-label left">←</span>
+            <div class="inner" style="min-width:40px;"></div>
+            <span class="pad-label right">→</span>
+          </div>
+          <div style="font-size:11px;color:#71717a;text-align:center">padding-left + padding-right<br>las dos zonas azules</div>
+        </div>
+
+        <div class="spacing-box-wrap">
+          <div class="spacing-box-label"><code class="code-tw">py-4</code> — vertical</div>
+          <div class="py-demo">
+            <span class="pad-label top">↑</span>
+            <div class="inner"></div>
+            <span class="pad-label bottom">↓</span>
+          </div>
+          <div style="font-size:11px;color:#71717a;text-align:center">padding-top + padding-bottom<br>las dos zonas verdes</div>
+        </div>
+
+        <div class="spacing-box-wrap">
+          <div class="spacing-box-label"><code class="code-tw">p-4</code> — todos los lados</div>
+          <div class="p-demo">
+            <span class="pad-label top">↑</span>
+            <span class="pad-label bottom">↓</span>
+            <span class="pad-label left">←</span>
+            <span class="pad-label right">→</span>
+            <div class="inner"></div>
+          </div>
+          <div style="font-size:11px;color:#71717a;text-align:center">los cuatro lados iguales</div>
+        </div>
+
+        <div style="flex:1; min-width:200px;">
+          <div class="sub-title">La escala numérica — 1 paso = 4px</div>
+          <div class="spacing-scale-visual">
+            <div class="scale-item">
+              <div style="width:4px;height:4px;background:#2563eb;border-radius:1px"></div>
+              <div class="scale-label"><strong>1</strong>4px</div>
+            </div>
+            <div class="scale-item">
+              <div style="width:8px;height:8px;background:#2563eb;border-radius:1px"></div>
+              <div class="scale-label"><strong>2</strong>8px</div>
+            </div>
+            <div class="scale-item">
+              <div style="width:12px;height:12px;background:#2563eb;border-radius:2px"></div>
+              <div class="scale-label"><strong>3</strong>12px</div>
+            </div>
+            <div class="scale-item">
+              <div style="width:16px;height:16px;background:#2563eb;border-radius:2px"></div>
+              <div class="scale-label"><strong>4</strong>16px</div>
+            </div>
+            <div class="scale-item">
+              <div style="width:20px;height:20px;background:#2563eb;border-radius:2px"></div>
+              <div class="scale-label"><strong>5</strong>20px</div>
+            </div>
+            <div class="scale-item">
+              <div style="width:24px;height:24px;background:#2563eb;border-radius:2px"></div>
+              <div class="scale-label"><strong>6</strong>24px</div>
+            </div>
+            <div class="scale-item">
+              <div style="width:32px;height:32px;background:#2563eb;border-radius:3px"></div>
+              <div class="scale-label"><strong>8</strong>32px</div>
+            </div>
+            <div class="scale-item">
+              <div style="width:40px;height:40px;background:#2563eb;border-radius:3px"></div>
+              <div class="scale-label"><strong>10</strong>40px</div>
+            </div>
+            <div class="scale-item">
+              <div style="width:48px;height:48px;background:#2563eb;border-radius:3px"></div>
+              <div class="scale-label"><strong>12</strong>48px</div>
+            </div>
+          </div>
+          <div style="font-size:11px;color:#a1a1aa;margin-top:8px">No es pixels — es el número del paso. <code>p-4</code> = paso 4 = 16px.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIPOGRAFÍA -->
+    <div class="section">
+      <div class="section-title">Tipografía — familias y escala de tamaños</div>
+      <div class="section-sub">Tailwind tiene una escala fija de tamaños con nombres en lugar de números.</div>
+
+      <!-- FAMILIAS -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px">
+        <div>
+          <div class="sub-title">Las 3 familias por defecto</div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:#f4f4f5;border-radius:6px">
+              <code class="code-tw" style="flex-shrink:0;width:80px">font-sans</code>
+              <div style="flex:1">
+                <div style="font-family:'Inter',system-ui,sans-serif;font-size:18px;font-weight:500;color:#18181b;line-height:1.2">The quick brown fox</div>
+                <div style="font-size:11px;color:#71717a;margin-top:2px">Inter · system-ui · sans-serif</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:#f4f4f5;border-radius:6px">
+              <code class="code-tw" style="flex-shrink:0;width:80px">font-serif</code>
+              <div style="flex:1">
+                <div style="font-family:'Playfair Display',Georgia,serif;font-size:18px;font-weight:400;color:#18181b;line-height:1.2">The quick brown fox</div>
+                <div style="font-size:11px;color:#71717a;margin-top:2px">Playfair Display · Georgia · Times New Roman</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:#f4f4f5;border-radius:6px">
+              <code class="code-tw" style="flex-shrink:0;width:80px">font-mono</code>
+              <div style="flex:1">
+                <div style="font-family:'JetBrains Mono','Courier New',monospace;font-size:16px;font-weight:400;color:#18181b;line-height:1.2">The quick brown fox</div>
+                <div style="font-size:11px;color:#71717a;margin-top:2px">JetBrains Mono · Courier New · monospace</div>
+              </div>
+            </div>
+          </div>
+          <div style="font-size:11px;color:#a1a1aa;margin-top:8px;line-height:1.5">Por defecto, Tailwind no descarga ninguna fuente — usa las del sistema operativo. Las que ves en esta demo (Inter, Playfair, JetBrains) se cargan desde Google Fonts a propósito, para mostrarte cómo se ven.</div>
+        </div>
+
+        <div>
+          <div class="sub-title">Para usar una fuente de marca (Inter, Satoshi, Geist…)</div>
+          <div style="background:#18181b;color:#e4e4e7;border-radius:8px;padding:14px;font-family:'SF Mono','Fira Code',monospace;font-size:11.5px;line-height:1.7">
+            <span style="color:#a1a1aa">/* 1. Cargar la fuente (Google Fonts, etc.) */</span><br>
+            &lt;link href="fonts.googleapis.com/css2?<br>
+            &nbsp;&nbsp;family=Inter" rel="stylesheet"&gt;<br><br>
+            <span style="color:#a1a1aa">/* 2. Registrarla en tailwind.config.js */</span><br>
+            fontFamily: {<br>
+            &nbsp;&nbsp;<span style="color:#86efac">sans</span>: [<span style="color:#fde68a">'Inter'</span>, 'system-ui'],<br>
+            &nbsp;&nbsp;<span style="color:#86efac">display</span>: [<span style="color:#fde68a">'Satoshi'</span>, 'sans-serif'],<br>
+            }
+          </div>
+          <div style="font-size:11px;color:#a1a1aa;margin-top:8px;line-height:1.5">Al reemplazar <code>sans</code>, <code>font-sans</code> pasa a ser Inter en todo el proyecto. O podés agregar <code>font-display</code> como categoría nueva.</div>
+        </div>
+      </div>
+
+      <div class="sub-title" style="margin-bottom:2px">Escala de tamaños</div>
+      <div class="type-scale">
+        <div class="type-row">
+          <div class="type-meta"><code class="code-tw">text-xs</code> <span style="font-size:11px;color:#a1a1aa">12px</span></div>
+          <div style="font-size:12px;color:#3f3f46">El tamaño mínimo aceptable. Labels, metadata, timestamps.</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><code class="code-tw">text-sm</code> <span style="font-size:11px;color:#a1a1aa">14px</span></div>
+          <div style="font-size:14px;color:#3f3f46">El tamaño más usado en interfaces. Texto de cuerpo, inputs, botones.</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><code class="code-tw">text-base</code> <span style="font-size:11px;color:#a1a1aa">16px</span></div>
+          <div style="font-size:16px;color:#3f3f46">Texto de lectura. Párrafos, descripciones largas.</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><code class="code-tw">text-lg</code> <span style="font-size:11px;color:#a1a1aa">18px</span></div>
+          <div style="font-size:18px;color:#3f3f46">Subtítulos pequeños, énfasis.</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><code class="code-tw">text-xl</code> <span style="font-size:11px;color:#a1a1aa">20px</span></div>
+          <div style="font-size:20px;color:#3f3f46;font-weight:500">Títulos de sección.</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><code class="code-tw">text-2xl</code> <span style="font-size:11px;color:#a1a1aa">24px</span></div>
+          <div style="font-size:24px;color:#18181b;font-weight:600">Page titles.</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><code class="code-tw">text-3xl</code> <span style="font-size:11px;color:#a1a1aa">30px</span></div>
+          <div style="font-size:30px;color:#18181b;font-weight:700">Heros, KPIs grandes.</div>
+        </div>
+        <div class="type-row" style="border-bottom:none">
+          <div class="type-meta"><code class="code-tw">text-4xl+</code> <span style="font-size:11px;color:#a1a1aa">36px+</span></div>
+          <div style="font-size:36px;color:#18181b;font-weight:800;line-height:1">Display.</div>
+        </div>
+      </div>
+      <div style="margin-top:20px">
+        <div class="sub-title">Pesos tipográficos</div>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <div style="display:flex;align-items:baseline;gap:12px;padding:7px 14px;background:#f4f4f5;border-radius:6px">
+            <code class="code-tw" style="width:120px;flex-shrink:0">font-thin</code>
+            <span style="font-size:11px;color:#a1a1aa;width:30px;flex-shrink:0">100</span>
+            <span style="font-family:'Inter',sans-serif;font-size:17px;font-weight:100;color:#18181b">The quick brown fox jumps</span>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:12px;padding:7px 14px;background:#f4f4f5;border-radius:6px">
+            <code class="code-tw" style="width:120px;flex-shrink:0">font-light</code>
+            <span style="font-size:11px;color:#a1a1aa;width:30px;flex-shrink:0">300</span>
+            <span style="font-family:'Inter',sans-serif;font-size:17px;font-weight:300;color:#18181b">The quick brown fox jumps</span>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:12px;padding:7px 14px;background:#f4f4f5;border-radius:6px">
+            <code class="code-tw" style="width:120px;flex-shrink:0">font-normal</code>
+            <span style="font-size:11px;color:#a1a1aa;width:30px;flex-shrink:0">400</span>
+            <span style="font-family:'Inter',sans-serif;font-size:17px;font-weight:400;color:#18181b">The quick brown fox jumps</span>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:12px;padding:7px 14px;background:#f4f4f5;border-radius:6px">
+            <code class="code-tw" style="width:120px;flex-shrink:0">font-medium</code>
+            <span style="font-size:11px;color:#a1a1aa;width:30px;flex-shrink:0">500</span>
+            <span style="font-family:'Inter',sans-serif;font-size:17px;font-weight:500;color:#18181b">The quick brown fox jumps</span>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:12px;padding:7px 14px;background:#f4f4f5;border-radius:6px">
+            <code class="code-tw" style="width:120px;flex-shrink:0">font-semibold</code>
+            <span style="font-size:11px;color:#a1a1aa;width:30px;flex-shrink:0">600</span>
+            <span style="font-family:'Inter',sans-serif;font-size:17px;font-weight:600;color:#18181b">The quick brown fox jumps</span>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:12px;padding:7px 14px;background:#f4f4f5;border-radius:6px">
+            <code class="code-tw" style="width:120px;flex-shrink:0">font-bold</code>
+            <span style="font-size:11px;color:#a1a1aa;width:30px;flex-shrink:0">700</span>
+            <span style="font-family:'Inter',sans-serif;font-size:17px;font-weight:700;color:#18181b">The quick brown fox jumps</span>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:12px;padding:7px 14px;background:#f4f4f5;border-radius:6px">
+            <code class="code-tw" style="width:120px;flex-shrink:0">font-extrabold</code>
+            <span style="font-size:11px;color:#a1a1aa;width:30px;flex-shrink:0">800</span>
+            <span style="font-family:'Inter',sans-serif;font-size:17px;font-weight:800;color:#18181b">The quick brown fox jumps</span>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:12px;padding:7px 14px;background:#f4f4f5;border-radius:6px">
+            <code class="code-tw" style="width:120px;flex-shrink:0">font-black</code>
+            <span style="font-size:11px;color:#a1a1aa;width:30px;flex-shrink:0">900</span>
+            <span style="font-family:'Inter',sans-serif;font-size:17px;font-weight:900;color:#18181b">The quick brown fox jumps</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOS ESCALAS, MISMOS NÚMEROS -->
+    <div class="section">
+      <div class="section-title">Dos escalas que usan los mismos números — y no tienen nada que ver</div>
+      <div class="section-sub">El 500 en font-weight y el 500 en un color son conceptos completamente distintos que comparten la misma convención numérica.</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:4px">
+
+        <!-- FONT WEIGHT -->
+        <div>
+          <div class="sub-title">
+            <code class="code-css" style="font-size:12px">font-weight</code> — grosor del trazo
+          </div>
+          <div style="display:flex;flex-direction:column;gap:3px">
+            <div style="display:flex;align-items:baseline;gap:10px">
+              <span style="font-size:11px;font-family:monospace;color:#a1a1aa;width:28px;flex-shrink:0;text-align:right">100</span>
+              <div style="flex:1;height:1px;background:#18181b;margin-bottom:2px;opacity:0.15;align-self:center"></div>
+              <span style="font-family:'Inter',sans-serif;font-size:20px;font-weight:100;color:#18181b;line-height:1">Aa</span>
+              <span style="font-size:11px;color:#a1a1aa">thin</span>
+            </div>
+            <div style="display:flex;align-items:baseline;gap:10px">
+              <span style="font-size:11px;font-family:monospace;color:#a1a1aa;width:28px;flex-shrink:0;text-align:right">200</span>
+              <div style="flex:1;height:1.5px;background:#18181b;margin-bottom:2px;opacity:0.2;align-self:center"></div>
+              <span style="font-family:'Inter',sans-serif;font-size:20px;font-weight:200;color:#18181b;line-height:1">Aa</span>
+              <span style="font-size:11px;color:#a1a1aa">extralight</span>
+            </div>
+            <div style="display:flex;align-items:baseline;gap:10px">
+              <span style="font-size:11px;font-family:monospace;color:#a1a1aa;width:28px;flex-shrink:0;text-align:right">300</span>
+              <div style="flex:1;height:2px;background:#18181b;opacity:0.3;align-self:center"></div>
+              <span style="font-family:'Inter',sans-serif;font-size:20px;font-weight:300;color:#18181b;line-height:1">Aa</span>
+              <span style="font-size:11px;color:#a1a1aa">light</span>
+            </div>
+            <div style="display:flex;align-items:baseline;gap:10px">
+              <span style="font-size:11px;font-family:monospace;color:#a1a1aa;width:28px;flex-shrink:0;text-align:right">400</span>
+              <div style="flex:1;height:2.5px;background:#18181b;opacity:0.4;align-self:center"></div>
+              <span style="font-family:'Inter',sans-serif;font-size:20px;font-weight:400;color:#18181b;line-height:1">Aa</span>
+              <span style="font-size:11px;color:#a1a1aa">normal</span>
+            </div>
+            <div style="display:flex;align-items:baseline;gap:10px">
+              <span style="font-size:11px;font-family:monospace;color:#2563eb;width:28px;flex-shrink:0;text-align:right;font-weight:600">500</span>
+              <div style="flex:1;height:3px;background:#2563eb;opacity:0.7;align-self:center"></div>
+              <span style="font-family:'Inter',sans-serif;font-size:20px;font-weight:500;color:#18181b;line-height:1">Aa</span>
+              <span style="font-size:11px;color:#2563eb;font-weight:500">medium ← el más usado en UI</span>
+            </div>
+            <div style="display:flex;align-items:baseline;gap:10px">
+              <span style="font-size:11px;font-family:monospace;color:#a1a1aa;width:28px;flex-shrink:0;text-align:right">600</span>
+              <div style="flex:1;height:3.5px;background:#18181b;opacity:0.55;align-self:center"></div>
+              <span style="font-family:'Inter',sans-serif;font-size:20px;font-weight:600;color:#18181b;line-height:1">Aa</span>
+              <span style="font-size:11px;color:#a1a1aa">semibold</span>
+            </div>
+            <div style="display:flex;align-items:baseline;gap:10px">
+              <span style="font-size:11px;font-family:monospace;color:#a1a1aa;width:28px;flex-shrink:0;text-align:right">700</span>
+              <div style="flex:1;height:4px;background:#18181b;opacity:0.65;align-self:center"></div>
+              <span style="font-family:'Inter',sans-serif;font-size:20px;font-weight:700;color:#18181b;line-height:1">Aa</span>
+              <span style="font-size:11px;color:#a1a1aa">bold</span>
+            </div>
+            <div style="display:flex;align-items:baseline;gap:10px">
+              <span style="font-size:11px;font-family:monospace;color:#a1a1aa;width:28px;flex-shrink:0;text-align:right">800</span>
+              <div style="flex:1;height:5px;background:#18181b;opacity:0.75;align-self:center"></div>
+              <span style="font-family:'Inter',sans-serif;font-size:20px;font-weight:800;color:#18181b;line-height:1">Aa</span>
+              <span style="font-size:11px;color:#a1a1aa">extrabold</span>
+            </div>
+            <div style="display:flex;align-items:baseline;gap:10px">
+              <span style="font-size:11px;font-family:monospace;color:#a1a1aa;width:28px;flex-shrink:0;text-align:right">900</span>
+              <div style="flex:1;height:6px;background:#18181b;opacity:0.85;align-self:center"></div>
+              <span style="font-family:'Inter',sans-serif;font-size:20px;font-weight:900;color:#18181b;line-height:1">Aa</span>
+              <span style="font-size:11px;color:#a1a1aa">black</span>
+            </div>
+          </div>
+          <div style="font-size:11px;color:#a1a1aa;margin-top:10px;line-height:1.5">9 valores, de 100 en 100. La barra lateral muestra cómo el trazo se engrosa — de hilo a macizo.</div>
+        </div>
+
+        <!-- COLOR STEP -->
+        <div>
+          <div class="sub-title">
+            <code class="code-tw" style="font-size:12px">blue-{step}</code> — posición en la paleta (claro → oscuro)
+          </div>
+          <div style="display:flex;flex-direction:column;gap:3px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="font-size:11px;font-family:monospace;color:#a1a1aa;width:28px;flex-shrink:0;text-align:right">50</span>
+              <div style="flex:1;height:24px;border-radius:4px;background:#eff6ff"></div>
+              <span style="font-size:11px;color:#a1a1aa">casi blanco</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="font-size:11px;font-family:monospace;color:#a1a1aa;width:28px;flex-shrink:0;text-align:right">100</span>
+              <div style="flex:1;height:24px;border-radius:4px;background:#dbeafe"></div>
+              <span style="font-size:11px;color:#a1a1aa">tinte muy claro</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="font-size:11px;font-family:monospace;color:#a1a1aa;width:28px;flex-shrink:0;text-align:right">200</span>
+              <div style="flex:1;height:24px;border-radius:4px;background:#bfdbfe"></div>
+              <span style="font-size:11px;color:#a1a1aa"></span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="font-size:11px;font-family:monospace;color:#a1a1aa;width:28px;flex-shrink:0;text-align:right">300</span>
+              <div style="flex:1;height:24px;border-radius:4px;background:#93c5fd"></div>
+              <span style="font-size:11px;color:#a1a1aa"></span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="font-size:11px;font-family:monospace;color:#a1a1aa;width:28px;flex-shrink:0;text-align:right">400</span>
+              <div style="flex:1;height:24px;border-radius:4px;background:#60a5fa"></div>
+              <span style="font-size:11px;color:#a1a1aa"></span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="font-size:11px;font-family:monospace;color:#2563eb;width:28px;flex-shrink:0;text-align:right;font-weight:600">500</span>
+              <div style="flex:1;height:24px;border-radius:4px;background:#3b82f6;outline:2px solid #2563eb;outline-offset:2px"></div>
+              <span style="font-size:11px;color:#2563eb;font-weight:500">tono puro del color</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="font-size:11px;font-family:monospace;color:#a1a1aa;width:28px;flex-shrink:0;text-align:right">600</span>
+              <div style="flex:1;height:24px;border-radius:4px;background:#2563eb"></div>
+              <span style="font-size:11px;color:#a1a1aa">← más usado en botones</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="font-size:11px;font-family:monospace;color:#a1a1aa;width:28px;flex-shrink:0;text-align:right">700</span>
+              <div style="flex:1;height:24px;border-radius:4px;background:#1d4ed8"></div>
+              <span style="font-size:11px;color:#a1a1aa">hover de botón</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="font-size:11px;font-family:monospace;color:#a1a1aa;width:28px;flex-shrink:0;text-align:right">800</span>
+              <div style="flex:1;height:24px;border-radius:4px;background:#1e40af"></div>
+              <span style="font-size:11px;color:#a1a1aa"></span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="font-size:11px;font-family:monospace;color:#a1a1aa;width:28px;flex-shrink:0;text-align:right">900</span>
+              <div style="flex:1;height:24px;border-radius:4px;background:#1e3a8a"></div>
+              <span style="font-size:11px;color:#a1a1aa">casi negro</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="font-size:11px;font-family:monospace;color:#a1a1aa;width:28px;flex-shrink:0;text-align:right">950</span>
+              <div style="flex:1;height:24px;border-radius:4px;background:#172554"></div>
+              <span style="font-size:11px;color:#a1a1aa"></span>
+            </div>
+          </div>
+          <div style="font-size:11px;color:#a1a1aa;margin-top:10px;line-height:1.5">11 valores. No es opacidad — es un color sólido distinto. El 100 sobre fondo blanco <em>parece</em> transparente pero es un sólido real.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- COLORES + RADII + SOMBRAS en grid -->
+    <div class="grid-2">
+
+      <!-- COLORES -->
+      <div class="section">
+        <div class="section-title">Colores — paleta zinc y blue</div>
+        <div class="section-sub">Tailwind tiene paletas completas de 11 pasos (50–950). Cada color + paso es una clase.</div>
+
+        <div class="sub-title">zinc — los grises neutros</div>
+        <div class="color-scale">
+          <div class="scale-item"><div class="swatch" style="background:#fafafa"><span class="swatch-label">50</span></div></div>
+          <div class="scale-item"><div class="swatch" style="background:#f4f4f5"><span class="swatch-label">100</span></div></div>
+          <div class="scale-item"><div class="swatch" style="background:#e4e4e7"><span class="swatch-label">200</span></div></div>
+          <div class="scale-item"><div class="swatch" style="background:#d4d4d8"><span class="swatch-label">300</span></div></div>
+          <div class="scale-item"><div class="swatch" style="background:#a1a1aa"><span class="swatch-label">400</span></div></div>
+          <div class="scale-item"><div class="swatch" style="background:#71717a"><span class="swatch-label" style="color:rgba(255,255,255,0.6)">500</span></div></div>
+          <div class="scale-item"><div class="swatch" style="background:#52525b"><span class="swatch-label" style="color:rgba(255,255,255,0.6)">600</span></div></div>
+          <div class="scale-item"><div class="swatch" style="background:#3f3f46"><span class="swatch-label" style="color:rgba(255,255,255,0.6)">700</span></div></div>
+          <div class="scale-item"><div class="swatch" style="background:#27272a"><span class="swatch-label" style="color:rgba(255,255,255,0.5)">800</span></div></div>
+          <div class="scale-item"><div class="swatch" style="background:#18181b"><span class="swatch-label" style="color:rgba(255,255,255,0.4)">900</span></div></div>
+          <div class="scale-item"><div class="swatch" style="background:#09090b"><span class="swatch-label" style="color:rgba(255,255,255,0.3)">950</span></div></div>
+        </div>
+
+        <div class="sub-title" style="margin-top:14px">blue — el accent default</div>
+        <div class="color-scale">
+          <div class="scale-item"><div class="swatch" style="background:#eff6ff"><span class="swatch-label">50</span></div></div>
+          <div class="scale-item"><div class="swatch" style="background:#dbeafe"><span class="swatch-label">100</span></div></div>
+          <div class="scale-item"><div class="swatch" style="background:#bfdbfe"><span class="swatch-label">200</span></div></div>
+          <div class="scale-item"><div class="swatch" style="background:#93c5fd"><span class="swatch-label">300</span></div></div>
+          <div class="scale-item"><div class="swatch" style="background:#60a5fa"><span class="swatch-label">400</span></div></div>
+          <div class="scale-item"><div class="swatch" style="background:#3b82f6"><span class="swatch-label" style="color:rgba(255,255,255,0.6)">500</span></div></div>
+          <div class="scale-item"><div class="swatch" style="background:#2563eb"><span class="swatch-label" style="color:rgba(255,255,255,0.6)">600</span></div></div>
+          <div class="scale-item"><div class="swatch" style="background:#1d4ed8"><span class="swatch-label" style="color:rgba(255,255,255,0.5)">700</span></div></div>
+          <div class="scale-item"><div class="swatch" style="background:#1e40af"><span class="swatch-label" style="color:rgba(255,255,255,0.4)">800</span></div></div>
+          <div class="scale-item"><div class="swatch" style="background:#1e3a8a"><span class="swatch-label" style="color:rgba(255,255,255,0.4)">900</span></div></div>
+        </div>
+
+        <div style="font-size:11px;color:#a1a1aa;margin-top:10px">Uso: <code class="code-tw">bg-blue-600</code> · <code class="code-tw">text-zinc-900</code> · <code class="code-tw">border-zinc-200</code></div>
+      </div>
+
+      <!-- RADII + SOMBRAS -->
+      <div>
+        <div class="section">
+          <div class="section-title">Corner radius — rounded</div>
+          <div class="section-sub">La escala va de casi nada a píldora completa.</div>
+          <div class="radii-scale">
+            <div class="radii-item">
+              <div class="radii-box" style="border-radius:2px"></div>
+              <div class="scale-label"><strong>rounded-sm</strong>2px</div>
+            </div>
+            <div class="radii-item">
+              <div class="radii-box" style="border-radius:4px"></div>
+              <div class="scale-label"><strong>rounded</strong>4px</div>
+            </div>
+            <div class="radii-item">
+              <div class="radii-box" style="border-radius:6px"></div>
+              <div class="scale-label"><strong>rounded-md</strong>6px</div>
+            </div>
+            <div class="radii-item">
+              <div class="radii-box" style="border-radius:8px"></div>
+              <div class="scale-label"><strong>rounded-lg</strong>8px</div>
+            </div>
+            <div class="radii-item">
+              <div class="radii-box" style="border-radius:12px"></div>
+              <div class="scale-label"><strong>rounded-xl</strong>12px</div>
+            </div>
+            <div class="radii-item">
+              <div class="radii-box" style="border-radius:9999px"></div>
+              <div class="scale-label"><strong>rounded-full</strong>píldora</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">Sombras — shadow</div>
+          <div class="section-sub">Elevación de superficie. De casi invisible a pronunciada.</div>
+          <div class="shadow-scale">
+            <div class="shadow-item">
+              <div class="shadow-box" style="box-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05)"></div>
+              <div class="scale-label"><strong>shadow-sm</strong></div>
+            </div>
+            <div class="shadow-item">
+              <div class="shadow-box" style="box-shadow:0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)"></div>
+              <div class="scale-label"><strong>shadow</strong></div>
+            </div>
+            <div class="shadow-item">
+              <div class="shadow-box" style="box-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)"></div>
+              <div class="scale-label"><strong>shadow-md</strong></div>
+            </div>
+            <div class="shadow-item">
+              <div class="shadow-box" style="box-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)"></div>
+              <div class="scale-label"><strong>shadow-lg</strong></div>
+            </div>
+            <div class="shadow-item">
+              <div class="shadow-box" style="box-shadow:0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)"></div>
+              <div class="scale-label"><strong>shadow-xl</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       STEP 1 — LOS 3 MODELOS
+  ============================================================ -->
+  <div class="step" id="step-1">
+    <h1>Los 3 modelos</h1>
+    <p class="page-sub">El mismo botón primario, escrito de tres formas distintas.</p>
+
+    <div class="comparison">
+
+      <!-- CSS semántico -->
+      <div class="col">
+        <span class="tag tag-css">Tu sistema actual</span>
+        <h2>CSS semántico</h2>
+        <p>Las clases tienen nombres con significado. El estilo vive en un archivo .css separado.</p>
+        <div class="files">
+          <div class="files-label">2 archivos</div>
+          <div class="file"><span class="file-dot dot-html"></span>index.html</div>
+          <div class="file"><span class="file-dot dot-css"></span>components.css</div>
+        </div>
+        <div class="demo">
+          <button class="btn-css">Guardar cambios</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <span class="file-dot dot-html" style="width:8px;height:8px"></span>
+          <span style="font-size:11px;font-weight:600;color:#52525b">index.html</span>
+          <span style="font-size:11px;color:#a1a1aa">— acá va el botón</span>
+        </div>
+        <pre style="margin-bottom:8px">&lt;button class="btn btn-primary"&gt;
+  Guardar cambios
+&lt;/button&gt;</pre>
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <span class="file-dot dot-css" style="width:8px;height:8px"></span>
+          <span style="font-size:11px;font-weight:600;color:#52525b">components.css</span>
+          <span style="font-size:11px;color:#a1a1aa">— acá vive el estilo</span>
+        </div>
+        <pre>.btn-primary {
+  background: #2563eb;
+  color: white;
+  padding: 0 16px;
+  height: 36px;
+  border-radius: 6px;
+}</pre>
+        <div class="note">
+          <strong>El HTML dice QUÉ es.</strong><br>
+          El CSS define cómo se ve. Para cambiar el estilo, abrís el .css. El HTML no cambia.
+        </div>
+      </div>
+
+      <!-- Tailwind puro -->
+      <div class="col">
+        <span class="tag tag-tw">Tailwind puro</span>
+        <h2>Utility-first</h2>
+        <p>Cada clase es una sola propiedad CSS. El estilo vive directamente en el HTML.</p>
+        <div class="files">
+          <div class="files-label">1 archivo</div>
+          <div class="file"><span class="file-dot dot-html"></span>index.html</div>
+        </div>
+        <div class="demo">
+          <button class="inline-flex items-center justify-center h-9 px-4 rounded-md text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 cursor-pointer transition-colors duration-150 border-0">
+            Guardar cambios
+          </button>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <span class="file-dot dot-html" style="width:8px;height:8px"></span>
+          <span style="font-size:11px;font-weight:600;color:#52525b">index.html</span>
+          <span style="font-size:11px;color:#a1a1aa">— el estilo está en las clases del mismo HTML</span>
+        </div>
+        <pre>&lt;button class="
+  inline-flex items-center
+  justify-center h-9 px-4
+  rounded-md text-sm
+  font-medium text-white
+  bg-blue-600 hover:bg-blue-700
+  transition-colors
+"&gt;
+  Guardar cambios
+&lt;/button&gt;</pre>
+        <div class="note">
+          <strong>El HTML dice CÓMO se ve.</strong><br>
+          No hay archivo CSS. Para cambiar el estilo, editás las clases directamente en el HTML.
+        </div>
+      </div>
+
+      <!-- @apply -->
+      <div class="col">
+        <span class="tag tag-both">Tailwind + @apply</span>
+        <h2>El puente</h2>
+        <p>Usás la escala de Tailwind pero con clases con nombre. Lo mejor de los dos mundos.</p>
+        <div class="files">
+          <div class="files-label">2 archivos</div>
+          <div class="file"><span class="file-dot dot-html"></span>index.html</div>
+          <div class="file"><span class="file-dot dot-css"></span>styles.css <span style="color:#a1a1aa;font-weight:400">(con @apply)</span></div>
+        </div>
+        <div class="demo">
+          <button class="btn-css">Guardar cambios</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <span class="file-dot dot-css" style="width:8px;height:8px"></span>
+          <span style="font-size:11px;font-weight:600;color:#52525b">styles.css</span>
+          <span style="font-size:11px;color:#a1a1aa">— el estilo, escrito con utilidades de Tailwind</span>
+        </div>
+        <pre style="margin-bottom:8px">.btn-primary {
+  @apply inline-flex items-center
+    justify-center h-9 px-4
+    rounded-md text-sm font-medium
+    text-white bg-blue-600
+    hover:bg-blue-700 transition-colors;
+}</pre>
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <span class="file-dot dot-html" style="width:8px;height:8px"></span>
+          <span style="font-size:11px;font-weight:600;color:#52525b">index.html</span>
+          <span style="font-size:11px;color:#a1a1aa">— el HTML sigue limpio, igual que en CSS semántico</span>
+        </div>
+        <pre>&lt;button class="btn-primary"&gt;
+  Guardar cambios
+&lt;/button&gt;</pre>
+        <div class="note">
+          <strong>Usás la escala de Tailwind</strong> pero el HTML sigue limpio con clases con nombre. Así trabaja shadcn/ui.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="section" style="margin-top:24px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;font-size:13px;color:#3f3f46;line-height:1.6">
+        <div>
+          <p style="margin:0 0 8px 0"><strong>CSS semántico funciona bien cuando:</strong></p>
+          <ul style="margin:0;padding-left:16px;color:#52525b">
+            <li>El proyecto tiene un sistema de diseño definido</li>
+            <li>El HTML tiene que ser legible sin conocer las clases de Tailwind</li>
+            <li>El equipo diseña los componentes desde cero y quiere control total</li>
+          </ul>
+        </div>
+        <div>
+          <p style="margin:0 0 8px 0"><strong>Tailwind es mejor cuando:</strong></p>
+          <ul style="margin:0;padding-left:16px;color:#52525b">
+            <li>Trabajás en React/Next.js donde cada componente es un archivo</li>
+            <li>Querés que el estilo y la estructura vivan juntos en el mismo lugar</li>
+            <li>Querés iterar rápido sin saltar entre archivos</li>
+          </ul>
+        </div>
+      </div>
+      <div class="info-box" style="margin-top:16px">
+        <strong>Por qué Tailwind domina en React:</strong> en React, cada componente es un archivo .jsx con su propio HTML y lógica. No hay un HTML global donde cargar un .css. Tailwind resuelve eso — el estilo viaja con el componente.
+      </div>
+      <div style="margin-top:16px;padding:16px;background:#fafafa;border:1px solid #e4e4e7;border-radius:8px;font-size:13px;color:#3f3f46;line-height:1.6">
+        <p style="margin:0 0 6px 0"><strong>Dato: shadcn/ui</strong></p>
+        <p style="margin:0 0 8px 0;color:#52525b">Es una librería de componentes para React que usa exactamente el patrón <strong>Tailwind + @apply</strong> que vimos arriba. En vez de darte un componente cerrado que no podés tocar, te da el código fuente directo — lo copiás, lo ajustás, lo hacés tuyo.</p>
+        <p style="margin:0;color:#52525b">Hoy es el stack más común en proyectos React modernos: los componentes ya vienen con tokens de color, variantes y accesibilidad resueltos. Diseñadores que trabajan con devs en React lo van a ver mucho.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       STEP 2 — TOKENS
+  ============================================================ -->
+  <div class="step" id="step-2">
+    <h1>Tokens</h1>
+    <p class="page-sub">Los tokens son la misma idea en diseño y en código: valores con nombre que representan decisiones del sistema.</p>
+
+    <div class="section">
+      <div class="section-title">Los mismos tokens, tres formatos distintos</div>
+      <div class="section-sub">El concepto es idéntico. Lo que cambia es el archivo donde viven y cómo se consumen.</div>
+
+      <div class="token-demo">
+        <div class="token-card">
+          <div class="token-card-title">Figma — Variables</div>
+          <div class="token-row">
+            <span class="token-name">color/primary</span>
+            <div style="display:flex;align-items:center;gap:6px">
+              <div class="token-swatch" style="background:#2563eb"></div>
+              <span class="token-val">#2563eb</span>
+            </div>
+          </div>
+          <div class="token-row">
+            <span class="token-name">color/primary-hover</span>
+            <div style="display:flex;align-items:center;gap:6px">
+              <div class="token-swatch" style="background:#1d4ed8"></div>
+              <span class="token-val">#1d4ed8</span>
+            </div>
+          </div>
+          <div class="token-row">
+            <span class="token-name">spacing/4</span>
+            <span class="token-val">16</span>
+          </div>
+          <div class="token-row">
+            <span class="token-name">radius/md</span>
+            <span class="token-val">6</span>
+          </div>
+          <div class="token-row">
+            <span class="token-name">text/sm</span>
+            <span class="token-val">14</span>
+          </div>
+          <div style="font-size:11px;color:#52525b;margin-top:12px;line-height:1.6">Vivís acá — en el panel de Variables de Figma. Para pasarlos a código, se exportan como <code>tokens.json</code>.</div>
+          <div style="font-size:11px;color:#2563eb;background:#eff6ff;border-radius:6px;padding:8px 10px;margin-top:8px;line-height:1.6">💡 Con Claude Code + plugin de Figma instalado, podés pedirle que lea tus variables y genere los archivos de tokens directamente — sin exportar ni traducir a mano.</div>
+        </div>
+
+        <div class="token-card">
+          <div class="token-card-title">CSS — custom properties</div>
+          <div class="token-row">
+            <span class="token-name">--primary</span>
+            <div style="display:flex;align-items:center;gap:6px">
+              <div class="token-swatch" style="background:#2563eb"></div>
+              <span class="token-val">#2563eb</span>
+            </div>
+          </div>
+          <div class="token-row">
+            <span class="token-name">--primary-hover</span>
+            <div style="display:flex;align-items:center;gap:6px">
+              <div class="token-swatch" style="background:#1d4ed8"></div>
+              <span class="token-val">#1d4ed8</span>
+            </div>
+          </div>
+          <div class="token-row">
+            <span class="token-name">--space-4</span>
+            <span class="token-val">16px</span>
+          </div>
+          <div class="token-row">
+            <span class="token-name">--radius-md</span>
+            <span class="token-val">6px</span>
+          </div>
+          <div class="token-row">
+            <span class="token-name">--text-sm</span>
+            <span class="token-val">14px</span>
+          </div>
+          <div style="font-size:11px;color:#52525b;margin-top:12px;line-height:1.6">Se definen en un archivo CSS separado, típicamente llamado <code>tokens.css</code>. Se consumen con <code>var(--primary)</code> en cualquier parte del CSS.</div>
+        </div>
+
+        <div class="token-card">
+          <div class="token-card-title">Tailwind — config JS</div>
+          <div class="token-row">
+            <span class="token-name">colors.primary</span>
+            <div style="display:flex;align-items:center;gap:6px">
+              <div class="token-swatch" style="background:#2563eb"></div>
+              <span class="token-val">'#2563eb'</span>
+            </div>
+          </div>
+          <div class="token-row">
+            <span class="token-name">colors.primary-hover</span>
+            <div style="display:flex;align-items:center;gap:6px">
+              <div class="token-swatch" style="background:#1d4ed8"></div>
+              <span class="token-val">'#1d4ed8'</span>
+            </div>
+          </div>
+          <div class="token-row">
+            <span class="token-name">spacing[4]</span>
+            <span class="token-val">'16px'</span>
+          </div>
+          <div class="token-row">
+            <span class="token-name">borderRadius.md</span>
+            <span class="token-val">'6px'</span>
+          </div>
+          <div class="token-row">
+            <span class="token-name">fontSize.sm</span>
+            <span class="token-val">'14px'</span>
+          </div>
+          <div style="font-size:11px;color:#52525b;margin-top:12px;line-height:1.6">Se configuran en <code>tailwind.config.js</code>. Una vez ahí, Tailwind genera las clases automáticamente: <code>bg-primary</code>, <code>p-4</code>, <code>text-sm</code>.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EL BOTÓN CON TOKENS -->
+    <div class="section">
+      <div class="section-title">El mismo botón — con tokens vs sin tokens</div>
+      <div class="section-sub">La diferencia no se ve en el resultado visual. Se ve cuando cambiás el sistema.</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:4px">
+        <div>
+          <div style="font-size:12px;font-weight:600;color:#ef4444;margin-bottom:8px">Sin tokens — valores hardcodeados</div>
+          <pre>.btn-primary {
+  background: #2563eb;    /* ← hardcoded */
+  color: #ffffff;          /* ← hardcoded */
+  padding: 0 16px;         /* ← hardcoded */
+  border-radius: 6px;      /* ← hardcoded */
+  font-size: 14px;         /* ← hardcoded */
+}</pre>
+          <div class="note" style="margin-top:10px">Si el color de marca cambia a verde, hay que buscar <code>#2563eb</code> en todos los archivos y reemplazarlo. En un sistema grande: horas de trabajo y bugs garantizados.</div>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:600;color:#059669;margin-bottom:8px">Con tokens — valores con nombre</div>
+          <div style="font-size:11px;color:#a1a1aa;margin-bottom:4px">tokens.css — acá se definen los valores</div>
+          <pre style="margin-bottom:8px">:root {
+  --primary: #2563eb;
+  --space-4: 16px;
+  --radius-md: 6px;
+  --text-sm: 14px;
+}</pre>
+          <div style="font-size:11px;color:#a1a1aa;margin-bottom:4px">components.css — acá se usan</div>
+          <pre>.btn-primary {
+  background: var(--primary);     /* ← token */
+  color: var(--primary-fg);       /* ← token */
+  padding: 0 var(--space-4);      /* ← token */
+  border-radius: var(--radius-md);/* ← token */
+  font-size: var(--text-sm);      /* ← token */
+}</pre>
+          <div class="note" style="margin-top:10px">Si el color de marca cambia, se cambia <code>--primary</code> en <code>tokens.css</code> — <strong>un solo lugar</strong> — y se actualiza en todo el sistema. Botones, badges, links, focus rings — todo.</div>
+        </div>
+      </div>
+
+      <div style="margin-top:20px;padding:20px;background:#fafafa;border-radius:8px;border:1px solid #e4e4e7">
+        <div class="sub-title">Tres posturas frente a Tailwind y los tokens:</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;font-size:12px">
+          <div style="padding:12px;background:white;border-radius:6px;border:1px solid #e4e4e7">
+            <div style="font-weight:600;color:#18181b;margin-bottom:4px">Usar Tailwind tal cual</div>
+            <div style="color:#71717a;line-height:1.5">Aceptás su escala como tus tokens. Rápido, pero perdés control de marca. Los valores son de Tailwind, no tuyos.</div>
+          </div>
+          <div style="padding:12px;background:white;border-radius:6px;border:1px solid #2563eb">
+            <div style="font-weight:600;color:#18181b;margin-bottom:4px">Extender Tailwind ← más común</div>
+            <div style="color:#71717a;line-height:1.5">Agregás tus tokens encima de los suyos en <code>tailwind.config.js</code>. Podés usar <code>bg-primary</code> con tu color de marca.</div>
+          </div>
+          <div style="padding:12px;background:white;border-radius:6px;border:1px solid #e4e4e7">
+            <div style="font-weight:600;color:#18181b;margin-bottom:4px">Reemplazar Tailwind</div>
+            <div style="color:#71717a;line-height:1.5">Desactivás sus defaults y ponés solo tus tokens. Máximo control, más trabajo inicial.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============================================================
+       STEP 3 — LAYOUT
+  ============================================================ -->
+  <div class="step" id="step-3">
+    <h1>Layout — cómo se organizan los elementos</h1>
+    <p class="page-sub">Flex y Grid son los dos sistemas para distribuir elementos. Ambos son de CSS — Tailwind solo los convierte en palabras cortas que escribís directo en el HTML. Son como Auto Layout en Figma: elegís el modo y configurás las opciones.</p>
+
+    <!-- FLEX = AUTO LAYOUT -->
+    <div class="section">
+      <div class="section-title">Flex = Auto Layout de Figma</div>
+      <div class="section-sub">Para organizar elementos en fila o columna usás <code class="code-tw">flex</code>, junto con opciones de dirección, alineación y <code class="code-tw">gap</code>. El <code class="code-tw">flex</code> es necesario — sin él, el resto no tiene efecto.</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+        <div>
+          <div class="sub-title">Para alinear horizontalmente — <code class="code-tw">flex</code> o <code class="code-tw">flex flex-row</code></div>
+          <div style="display:flex;flex-direction:row;gap:8px;padding:16px;background:#f4f4f5;border-radius:8px">
+            <div style="width:48px;height:48px;background:#2563eb;border-radius:6px;display:flex;align-items:center;justify-content:center;color:white;font-size:13px;font-weight:600">1</div>
+            <div style="width:48px;height:48px;background:#2563eb;border-radius:6px;display:flex;align-items:center;justify-content:center;color:white;font-size:13px;font-weight:600">2</div>
+            <div style="width:48px;height:48px;background:#2563eb;border-radius:6px;display:flex;align-items:center;justify-content:center;color:white;font-size:13px;font-weight:600">3</div>
+          </div>
+          <div style="font-size:11px;color:#a1a1aa;margin-top:6px">Fila es la dirección por default — podés escribir solo <code>flex</code> y asume esto.</div>
+        </div>
+        <div>
+          <div class="sub-title">Para apilar verticalmente — <code class="code-tw">flex flex-col</code></div>
+          <div style="display:flex;flex-direction:column;gap:8px;padding:16px;background:#f4f4f5;border-radius:8px">
+            <div style="width:48px;height:48px;background:#2563eb;border-radius:6px;display:flex;align-items:center;justify-content:center;color:white;font-size:13px;font-weight:600">1</div>
+            <div style="width:48px;height:48px;background:#2563eb;border-radius:6px;display:flex;align-items:center;justify-content:center;color:white;font-size:13px;font-weight:600">2</div>
+            <div style="width:48px;height:48px;background:#2563eb;border-radius:6px;display:flex;align-items:center;justify-content:center;color:white;font-size:13px;font-weight:600">3</div>
+          </div>
+          <div style="font-size:11px;color:#a1a1aa;margin-top:6px">Para apilar verticalmente necesitás escribir <code>flex-col</code> explícitamente.</div>
+        </div>
+      </div>
+
+      <!-- justify + items -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:20px">
+        <div>
+          <div class="sub-title">Distribución en el eje principal — <code class="code-tw">justify-</code></div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div>
+              <div class="demo-label">justify-start</div>
+              <div style="display:flex;justify-content:flex-start;gap:6px;padding:10px;background:#f4f4f5;border-radius:6px;border:1px dashed #d4d4d8">
+                <div style="width:28px;height:28px;background:#2563eb;border-radius:4px"></div>
+                <div style="width:28px;height:28px;background:#2563eb;border-radius:4px"></div>
+                <div style="width:28px;height:28px;background:#2563eb;border-radius:4px"></div>
+              </div>
+            </div>
+            <div>
+              <div class="demo-label">justify-center</div>
+              <div style="display:flex;justify-content:center;gap:6px;padding:10px;background:#f4f4f5;border-radius:6px;border:1px dashed #d4d4d8">
+                <div style="width:28px;height:28px;background:#2563eb;border-radius:4px"></div>
+                <div style="width:28px;height:28px;background:#2563eb;border-radius:4px"></div>
+                <div style="width:28px;height:28px;background:#2563eb;border-radius:4px"></div>
+              </div>
+            </div>
+            <div>
+              <div class="demo-label">justify-between — separa grupos a los extremos</div>
+              <div style="display:flex;justify-content:space-between;gap:6px;padding:10px;background:#f4f4f5;border-radius:6px;border:1px dashed #d4d4d8">
+                <div style="width:28px;height:28px;background:#2563eb;border-radius:4px"></div>
+                <div style="width:28px;height:28px;background:#2563eb;border-radius:4px"></div>
+                <div style="width:28px;height:28px;background:#2563eb;border-radius:4px"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="sub-title">Alineación en el eje cruzado — <code class="code-tw">items-</code></div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div>
+              <div class="demo-label">items-start — alineados al tope</div>
+              <div style="display:flex;align-items:flex-start;gap:6px;padding:10px;background:#f4f4f5;border-radius:6px;border:1px dashed #d4d4d8;height:64px">
+                <div style="width:28px;height:28px;background:#2563eb;border-radius:4px"></div>
+                <div style="width:28px;height:44px;background:#2563eb;border-radius:4px"></div>
+                <div style="width:28px;height:18px;background:#2563eb;border-radius:4px"></div>
+              </div>
+            </div>
+            <div>
+              <div class="demo-label">items-center — centrados verticalmente (ícono + texto)</div>
+              <div style="display:flex;align-items:center;gap:6px;padding:10px;background:#f4f4f5;border-radius:6px;border:1px dashed #d4d4d8;height:64px">
+                <div style="width:28px;height:28px;background:#2563eb;border-radius:4px"></div>
+                <div style="width:28px;height:44px;background:#2563eb;border-radius:4px"></div>
+                <div style="width:28px;height:18px;background:#2563eb;border-radius:4px"></div>
+              </div>
+            </div>
+            <div>
+              <div class="demo-label">items-end — alineados al fondo</div>
+              <div style="display:flex;align-items:flex-end;gap:6px;padding:10px;background:#f4f4f5;border-radius:6px;border:1px dashed #d4d4d8;height:64px">
+                <div style="width:28px;height:28px;background:#2563eb;border-radius:4px"></div>
+                <div style="width:28px;height:44px;background:#2563eb;border-radius:4px"></div>
+                <div style="width:28px;height:18px;background:#2563eb;border-radius:4px"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- EL DIV ES EL FRAME -->
+    <div class="section">
+      <div class="section-title">El div es el Frame del código</div>
+      <div class="section-sub">Vas a escuchar mucho sobre <code>div</code> — todo en una interfaz vive dentro de uno. Es el equivalente al Frame de Figma: un contenedor que agrupa elementos y puede tener sus propios estilos visuales.</div>
+
+      <!-- visual: un div con propiedades -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px">
+        <div>
+          <div class="group-label">Un div puede tener estilos propios</div>
+          <div style="background:#fafafa;border:1px solid #e4e4e7;border-radius:12px;padding:20px">
+            <div style="font-size:12px;color:#18181b;font-weight:500;margin-bottom:4px">Soy un div</div>
+            <div style="font-size:11px;color:#71717a">con fondo, borde, border-radius y sombra</div>
+          </div>
+          <div style="font-size:11px;font-family:monospace;color:#71717a;margin-top:8px;line-height:1.7">bg-zinc-50 border border-zinc-200<br>rounded-xl shadow-sm p-5</div>
+        </div>
+        <div>
+          <div class="group-label">Con flex adentro = Auto Layout</div>
+          <div style="background:#fafafa;border:1px solid #e4e4e7;border-radius:12px;padding:20px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <div style="width:36px;height:36px;background:#2563eb;border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-size:16px;flex-shrink:0">✓</div>
+              <div>
+                <div style="font-size:12px;font-weight:600;color:#18181b">Tarea completada</div>
+                <div style="font-size:11px;color:#71717a">hace 2 minutos</div>
+              </div>
+            </div>
+          </div>
+          <div style="font-size:11px;font-family:monospace;color:#71717a;margin-top:8px;line-height:1.7">bg-zinc-50 border border-zinc-200<br>rounded-xl p-5 <strong style="color:#18181b">flex items-center gap-3</strong></div>
+        </div>
+      </div>
+
+      <!-- ancho y alto -->
+      <div style="font-size:13px;font-weight:600;color:#18181b;margin-bottom:10px">Ancho y alto — igual que en Figma</div>
+
+      <div class="group-label">Ancho:</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px;font-size:12px">
+        <div style="padding:10px 12px;background:#fafafa;border-radius:6px;border:1px solid #e4e4e7">
+          <div style="font-weight:600;color:#18181b;margin-bottom:4px">Fill container</div>
+          <div style="background:#dbeafe;border-radius:4px;padding:4px 8px;width:100%;margin-bottom:8px;font-size:10px;color:#1e40af;white-space:nowrap;overflow:hidden">soy una frase de ejemplo</div>
+          <div style="color:#52525b;margin-bottom:8px;line-height:1.5">Default. Sigue el ancho del contenedor padre.</div>
+          <div style="display:flex;flex-direction:column;gap:3px">
+            <div><span style="font-size:10px;font-weight:600;color:#a1a1aa;text-transform:uppercase;letter-spacing:0.05em">Tailwind</span> <code style="color:#2563eb">w-full</code></div>
+            <div><span style="font-size:10px;font-weight:600;color:#a1a1aa;text-transform:uppercase;letter-spacing:0.05em">CSS</span> <code style="color:#71717a">width: 100%</code></div>
+          </div>
+        </div>
+        <div style="padding:10px 12px;background:#fafafa;border-radius:6px;border:1px solid #e4e4e7">
+          <div style="font-weight:600;color:#18181b;margin-bottom:4px">Hug contents</div>
+          <div style="background:#e4e4e7;border-radius:4px;padding:4px 8px;width:fit-content;margin-bottom:8px;font-size:10px;color:#52525b;white-space:nowrap">soy una frase de ejemplo</div>
+          <div style="color:#52525b;margin-bottom:8px;line-height:1.5">Se achica al ancho de lo que tiene adentro.</div>
+          <div style="display:flex;flex-direction:column;gap:3px">
+            <div><span style="font-size:10px;font-weight:600;color:#a1a1aa;text-transform:uppercase;letter-spacing:0.05em">Tailwind</span> <code style="color:#71717a">w-fit</code></div>
+            <div><span style="font-size:10px;font-weight:600;color:#a1a1aa;text-transform:uppercase;letter-spacing:0.05em">CSS</span> <code style="color:#71717a">width: fit-content</code></div>
+          </div>
+        </div>
+        <div style="padding:10px 12px;background:#fafafa;border-radius:6px;border:1px solid #e4e4e7">
+          <div style="font-weight:600;color:#18181b;margin-bottom:4px">Fijo</div>
+          <div style="background:#e4e4e7;border-radius:4px;padding:4px 8px;width:160px;margin-bottom:8px;font-size:10px;color:#52525b;white-space:nowrap;overflow:hidden">soy una frase de ejemplo</div>
+          <div style="color:#52525b;margin-bottom:8px;line-height:1.5">Siempre igual. Escala Tailwind: 64 × 4px = 256px.</div>
+          <div style="display:flex;flex-direction:column;gap:3px">
+            <div><span style="font-size:10px;font-weight:600;color:#a1a1aa;text-transform:uppercase;letter-spacing:0.05em">Tailwind</span> <code style="color:#71717a">w-64</code></div>
+            <div><span style="font-size:10px;font-weight:600;color:#a1a1aa;text-transform:uppercase;letter-spacing:0.05em">CSS</span> <code style="color:#71717a">width: 256px</code></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="group-label">Alto — exactamente lo mismo:</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;font-size:12px">
+        <div style="padding:10px 12px;background:#fafafa;border-radius:6px;border:1px solid #e4e4e7">
+          <div style="font-weight:600;color:#18181b;margin-bottom:4px">Fill container</div>
+          <div style="display:flex;flex-direction:column;gap:3px">
+            <div><span style="font-size:10px;font-weight:600;color:#a1a1aa;text-transform:uppercase;letter-spacing:0.05em">Tailwind</span> <code style="color:#2563eb">h-full</code></div>
+            <div><span style="font-size:10px;font-weight:600;color:#a1a1aa;text-transform:uppercase;letter-spacing:0.05em">CSS</span> <code style="color:#71717a">height: 100%</code></div>
+          </div>
+        </div>
+        <div style="padding:10px 12px;background:#fafafa;border-radius:6px;border:1px solid #e4e4e7">
+          <div style="font-weight:600;color:#18181b;margin-bottom:4px">Hug contents</div>
+          <div style="display:flex;flex-direction:column;gap:3px">
+            <div><span style="font-size:10px;font-weight:600;color:#a1a1aa;text-transform:uppercase;letter-spacing:0.05em">Tailwind</span> <code style="color:#71717a">h-fit</code></div>
+            <div><span style="font-size:10px;font-weight:600;color:#a1a1aa;text-transform:uppercase;letter-spacing:0.05em">CSS</span> <code style="color:#71717a">height: fit-content</code></div>
+          </div>
+        </div>
+        <div style="padding:10px 12px;background:#fafafa;border-radius:6px;border:1px solid #e4e4e7">
+          <div style="font-weight:600;color:#18181b;margin-bottom:4px">Fijo</div>
+          <div style="display:flex;flex-direction:column;gap:3px">
+            <div><span style="font-size:10px;font-weight:600;color:#a1a1aa;text-transform:uppercase;letter-spacing:0.05em">Tailwind</span> <code style="color:#71717a">h-64</code></div>
+            <div><span style="font-size:10px;font-weight:600;color:#a1a1aa;text-transform:uppercase;letter-spacing:0.05em">CSS</span> <code style="color:#71717a">height: 256px</code></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DIVS ANIDADOS -->
+    <div class="section">
+      <div class="section-title">Divs anidados — igual que frames dentro de frames</div>
+      <div class="section-sub">Los divs se anidan igual que en Figma: un div padre agrupa y distribuye, y cada div hijo configura su propio flex de forma independiente. El padre no sabe qué hay adentro de cada hijo — solo distribuye los grupos.</div>
+
+      <!-- diagrama anotado -->
+      <div style="position:relative;padding:4px;background:#eff6ff;border-radius:10px;border:2px dashed #93c5fd;margin-bottom:8px">
+        <div style="font-size:10px;font-weight:600;color:#1d4ed8;padding:4px 8px 8px">PADRE — flex justify-between — separa los dos grupos</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 14px;background:white;border-radius:6px">
+          <div style="position:relative;padding:4px;background:#f4f4f5;border-radius:8px;border:2px dashed #d4d4d8">
+            <div style="font-size:10px;font-weight:600;color:#52525b;padding:2px 6px 6px">HIJO — flex items-center gap-2</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:4px 8px">
+              <div style="width:28px;height:28px;background:#18181b;border-radius:6px"></div>
+              <span style="font-size:14px;font-weight:600;color:#18181b">MiApp</span>
+            </div>
+          </div>
+          <div style="position:relative;padding:4px;background:white;border-radius:8px;border:2px dashed #d4d4d8">
+            <div style="font-size:10px;font-weight:600;color:#52525b;padding:2px 6px 6px">HIJO — flex items-center gap-2</div>
+            <div style="display:flex;align-items:center;gap:6px;padding:4px 8px">
+              <div style="height:28px;padding:0 12px;background:white;border:1px solid #e4e4e7;border-radius:6px;display:flex;align-items:center;font-size:13px;color:#52525b">Inicio</div>
+              <div style="height:28px;padding:0 12px;background:white;border:1px solid #e4e4e7;border-radius:6px;display:flex;align-items:center;font-size:13px;color:#52525b">Precios</div>
+              <div style="height:28px;padding:0 12px;background:#2563eb;border-radius:6px;display:flex;align-items:center;font-size:13px;color:white;font-weight:500">Entrar</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="background:#18181b;color:#e4e4e7;border-radius:8px;padding:14px;font-family:'SF Mono',monospace;font-size:11.5px;line-height:1.8">
+        &lt;header class="<span style="color:#93c5fd">flex justify-between items-center</span>"&gt;<br>
+        &nbsp;&nbsp;&lt;div class="<span style="color:#a1a1aa">flex items-center gap-2</span>"&gt; logo + nombre &lt;/div&gt;<br>
+        &nbsp;&nbsp;&lt;div class="<span style="color:#a1a1aa">flex items-center gap-2</span>"&gt; nav + botón &lt;/div&gt;<br>
+        &lt;/header&gt;
+      </div>
+    </div>
+
+    <!-- RESPONSIVE CON FLEX -->
+    <div class="section">
+      <div class="section-title">Responsive con Flex — el patrón más común</div>
+      <div class="section-sub">El patrón más usado en responsive: los elementos van apilados en mobile y en fila en desktop. Una sola clase lo hace.</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:16px">
+        <div>
+          <div style="font-size:11px;color:#71717a;margin-bottom:8px;font-weight:500">📱 Mobile — columna</div>
+          <div style="background:#fafafa;border:1px solid #e4e4e7;border-radius:8px;padding:16px;width:140px">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="height:48px;background:#dbeafe;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#1e40af;font-weight:500">Imagen</div>
+              <div style="display:flex;flex-direction:column;gap:4px">
+                <div style="height:10px;background:#e4e4e7;border-radius:3px;width:80%"></div>
+                <div style="height:10px;background:#e4e4e7;border-radius:3px;width:60%"></div>
+                <div style="height:10px;background:#e4e4e7;border-radius:3px;width:70%"></div>
+              </div>
+            </div>
+          </div>
+          <div style="font-size:11px;font-family:monospace;color:#71717a;margin-top:8px">flex-col</div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:#71717a;margin-bottom:8px;font-weight:500">🖥 Desktop — fila</div>
+          <div style="background:#fafafa;border:1px solid #e4e4e7;border-radius:8px;padding:16px;">
+            <div style="display:flex;flex-direction:row;gap:12px;align-items:center">
+              <div style="width:80px;height:64px;background:#dbeafe;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#1e40af;font-weight:500;flex-shrink:0">Imagen</div>
+              <div style="display:flex;flex-direction:column;gap:4px;flex:1">
+                <div style="height:10px;background:#e4e4e7;border-radius:3px;width:90%"></div>
+                <div style="height:10px;background:#e4e4e7;border-radius:3px;width:70%"></div>
+                <div style="height:10px;background:#e4e4e7;border-radius:3px;width:80%"></div>
+              </div>
+            </div>
+          </div>
+          <div style="font-size:11px;font-family:monospace;color:#71717a;margin-top:8px">md:flex-row</div>
+        </div>
+      </div>
+
+      <div style="background:#18181b;color:#e4e4e7;border-radius:8px;padding:14px;font-family:'SF Mono',monospace;font-size:11.5px;line-height:1.8">
+        &lt;div class="<span style="color:#93c5fd">flex flex-col</span> <span style="color:#bfdbfe">md:flex-row</span> gap-4 items-center"&gt;
+      </div>
+      <div style="font-size:12px;color:#71717a;margin-top:8px;line-height:1.5">Sin prefijo = mobile. <code class="code-tw">md:flex-row</code> entra en 768px. Una sola línea reemplaza lo que en CSS serían 6 líneas de media query.</div>
+
+      <div style="background:#fafafa;border:1px solid #e4e4e7;border-radius:8px;padding:14px 16px;margin-top:12px">
+        <div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:6px">Breakpoints — el mismo concepto que en diseño</div>
+        <div style="font-size:12px;color:#52525b;margin-bottom:10px;line-height:1.6">En Figma trabajás con breakpoints para definir cómo cambia el layout según el ancho de pantalla. En Tailwind es lo mismo: cada prefijo corresponde a un breakpoint. Todos funcionan "hacia arriba" — <code>md:</code> significa "desde 768px en adelante".</div>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;font-size:11px">
+          <div style="padding:8px 10px;background:white;border-radius:6px;border:1px solid #e4e4e7;text-align:center">
+            <div style="font-family:monospace;font-weight:600;color:#18181b;margin-bottom:2px">sm:</div>
+            <div style="color:#71717a">640px</div>
+          </div>
+          <div style="padding:8px 10px;background:white;border-radius:6px;border:1px solid #2563eb;text-align:center">
+            <div style="font-family:monospace;font-weight:600;color:#2563eb;margin-bottom:2px">md:</div>
+            <div style="color:#71717a">768px</div>
+            <div style="font-size:10px;color:#2563eb;margin-top:2px">el de este ejemplo</div>
+          </div>
+          <div style="padding:8px 10px;background:white;border-radius:6px;border:1px solid #e4e4e7;text-align:center">
+            <div style="font-family:monospace;font-weight:600;color:#18181b;margin-bottom:2px">lg:</div>
+            <div style="color:#71717a">1024px</div>
+          </div>
+          <div style="padding:8px 10px;background:white;border-radius:6px;border:1px solid #e4e4e7;text-align:center">
+            <div style="font-family:monospace;font-weight:600;color:#18181b;margin-bottom:2px">xl:</div>
+            <div style="color:#71717a">1280px</div>
+          </div>
+          <div style="padding:8px 10px;background:white;border-radius:6px;border:1px solid #e4e4e7;text-align:center">
+            <div style="font-family:monospace;font-weight:600;color:#18181b;margin-bottom:2px">2xl:</div>
+            <div style="color:#71717a">1536px</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GRID -->
+    <div class="section">
+      <div class="section-title">Grid — cuando necesitás dos dimensiones</div>
+      <div class="section-sub">Flex organiza en una dirección. Grid organiza en filas Y columnas a la vez — como una tabla pero flexible. Usalo cuando los elementos forman una cuadrícula.</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px">
+        <div>
+          <div class="demo-label">grid grid-cols-2</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:12px;background:#f4f4f5;border-radius:8px">
+            <div style="height:36px;background:#2563eb;border-radius:4px"></div>
+            <div style="height:36px;background:#2563eb;border-radius:4px"></div>
+            <div style="height:36px;background:#2563eb;border-radius:4px"></div>
+            <div style="height:36px;background:#2563eb;border-radius:4px"></div>
+          </div>
+          <div style="font-size:11px;color:#a1a1aa;margin-top:4px">2 columnas iguales</div>
+        </div>
+        <div>
+          <div class="demo-label">grid grid-cols-3</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;padding:12px;background:#f4f4f5;border-radius:8px">
+            <div style="height:36px;background:#2563eb;border-radius:4px"></div>
+            <div style="height:36px;background:#2563eb;border-radius:4px"></div>
+            <div style="height:36px;background:#2563eb;border-radius:4px"></div>
+            <div style="height:36px;background:#2563eb;border-radius:4px"></div>
+            <div style="height:36px;background:#2563eb;border-radius:4px"></div>
+            <div style="height:36px;background:#2563eb;border-radius:4px"></div>
+          </div>
+          <div style="font-size:11px;color:#a1a1aa;margin-top:4px">3 columnas iguales</div>
+        </div>
+        <div>
+          <div class="demo-label">col-span-2 = merge cells</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;padding:12px;background:#f4f4f5;border-radius:8px">
+            <div style="height:36px;background:#2563eb;border-radius:4px;grid-column:span 2;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:white">span 2</div>
+            <div style="height:36px;background:#1d4ed8;border-radius:4px"></div>
+            <div style="height:36px;background:#2563eb;border-radius:4px"></div>
+            <div style="height:36px;background:#2563eb;border-radius:4px"></div>
+            <div style="height:36px;background:#2563eb;border-radius:4px"></div>
+          </div>
+          <div style="font-size:11px;color:#a1a1aa;margin-top:4px">igual que merge cells en Excel</div>
+        </div>
+      </div>
+
+      <!-- flex dentro de grid -->
+      <div class="sub-title">Flex dentro de Grid — se combinan</div>
+      <div style="padding:12px;background:#f4f4f5;border-radius:8px;border:2px dashed #d4d4d8;margin-bottom:8px">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+          <div style="background:white;border-radius:6px;border:1px solid #e4e4e7;padding:12px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+              <div style="width:32px;height:32px;background:#dbeafe;border-radius:6px"></div>
+              <div style="font-size:10px;font-weight:600;color:#2563eb;background:#eff6ff;padding:2px 6px;border-radius:3px">Nuevo</div>
+            </div>
+            <div style="height:8px;background:#f4f4f5;border-radius:3px;margin-bottom:4px"></div>
+            <div style="height:8px;background:#f4f4f5;border-radius:3px;width:70%"></div>
+          </div>
+          <div style="background:white;border-radius:6px;border:1px solid #e4e4e7;padding:12px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+              <div style="width:32px;height:32px;background:#d1fae5;border-radius:6px"></div>
+              <div style="font-size:10px;font-weight:600;color:#059669;background:#ecfdf5;padding:2px 6px;border-radius:3px">Activo</div>
+            </div>
+            <div style="height:8px;background:#f4f4f5;border-radius:3px;margin-bottom:4px"></div>
+            <div style="height:8px;background:#f4f4f5;border-radius:3px;width:60%"></div>
+          </div>
+          <div style="background:white;border-radius:6px;border:1px solid #e4e4e7;padding:12px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+              <div style="width:32px;height:32px;background:#fef9c3;border-radius:6px"></div>
+              <div style="font-size:10px;font-weight:600;color:#ca8a04;background:#fefce8;padding:2px 6px;border-radius:3px">Pausado</div>
+            </div>
+            <div style="height:8px;background:#f4f4f5;border-radius:3px;margin-bottom:4px"></div>
+            <div style="height:8px;background:#f4f4f5;border-radius:3px;width:80%"></div>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:12px;color:#71717a;line-height:1.5">El contenedor usa <code class="code-tw">grid grid-cols-3</code> para las columnas. Cada card usa <code class="code-tw">flex justify-between items-center</code> para el encabezado interno. Grid y flex conviven en el mismo componente.</div>
+    </div>
+
+    <!-- CUÁNDO USAR CADA UNO -->
+    <div class="section">
+      <div class="section-title">¿Flex o Grid? — y cuándo decidirlo</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px">
+        <div>
+          <div style="font-size:12px;font-weight:600;color:#2563eb;margin-bottom:10px">Usá Flex cuando…</div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;gap:8px;align-items:flex-start;font-size:13px;color:#3f3f46;padding:6px 10px;background:#eff6ff;border-radius:6px">→ Es una fila de elementos: botones, tabs, nav, tags</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;font-size:13px;color:#3f3f46;padding:6px 10px;background:#eff6ff;border-radius:6px">→ Es una columna de elementos: lista, form, sidebar</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;font-size:13px;color:#3f3f46;padding:6px 10px;background:#eff6ff;border-radius:6px">→ Necesitás centrar algo (horizontal + vertical)</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;font-size:13px;color:#3f3f46;padding:6px 10px;background:#eff6ff;border-radius:6px">→ El contenido tiene tamaños variables</div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:600;color:#f59e0b;margin-bottom:10px">Usá Grid cuando…</div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;gap:8px;align-items:flex-start;font-size:13px;color:#3f3f46;padding:6px 10px;background:#fefce8;border-radius:6px">→ Tenés una galería de cards iguales</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;font-size:13px;color:#3f3f46;padding:6px 10px;background:#fefce8;border-radius:6px">→ Tenés el layout de la página (sidebar + contenido)</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;font-size:13px;color:#3f3f46;padding:6px 10px;background:#fefce8;border-radius:6px">→ Necesitás que algo ocupe varias columnas (merge)</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;font-size:13px;color:#3f3f46;padding:6px 10px;background:#fefce8;border-radius:6px">→ Las columnas tienen ancho fijo definido por vos</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- cuándo decidirlo -->
+      <div style="background:#f4f4f5;border-radius:8px;padding:16px;margin-bottom:12px">
+        <div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:8px">¿Lo decidís al principio o lo cambiás después?</div>
+        <div style="font-size:13px;color:#3f3f46;line-height:1.7">
+          Podés empezar todo en flex y agregar grid después — cambiarlo es fácil. Cambiar un <code class="code-tw">flex</code> por <code class="code-tw">grid grid-cols-3</code> es literalmente editar una clase. <strong>Pero</strong> hay dos momentos donde conviene decidir antes de arrancar:
+          <ul style="margin:8px 0 0 0;padding-left:16px">
+            <li style="margin-bottom:4px"><strong>El layout de la página</strong> (sidebar + contenido main) — si empezás con flex y después querés grid, puede requerir reestructurar el HTML</li>
+            <li><strong>Galerías de cards</strong> — si ya escribiste el markup con flex y el cliente quiere merge cells, el cambio es mínimo en CSS pero puede requerir ajustes en el HTML</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="background:#eff6ff;border-left:3px solid #2563eb;border-radius:0 8px 8px 0;padding:12px 16px;font-size:13px;color:#1e40af;line-height:1.6">
+        <strong>Regla práctica:</strong> si al mirar el diseño pensás "esto es una fila de cosas" → flex. Si pensás "esto es una grilla" → grid. En todo lo demás, flex por defecto. Con Claude el costo de cambiar es casi cero — es una edición de clase, no reescribir el componente.
+      </div>
+    </div>
+
+
+  </div>
+
+  <!-- ============================================================
+       STEP 4 — REACT, FRAMEWORKS Y ESTRUCTURA
+  ============================================================ -->
+  <div class="step" id="step-4">
+    <h1>React, frameworks y estructura de proyecto</h1>
+    <p class="page-sub">Por qué existe React, qué es un framework, cómo elegís el correcto y cómo se ve un proyecto por dentro.</p>
+
+    <!-- 2. QUÉ ES UN FRAMEWORK -->
+    <div class="section">
+      <div class="section-title">Qué es un "framework" — la palabra que aparece en todos lados</div>
+      <div class="section-sub">En desarrollo web aparece constantemente en contextos distintos. No es una sola cosa — son tres capas, y en un proyecto real podés tener las tres juntas.</div>
+
+      <div style="font-size:13px;color:#3f3f46;line-height:1.7;margin-bottom:16px">
+        Un framework es una estructura pre-armada con reglas y convenciones. En lugar de tomar mil decisiones desde cero — ¿cómo organizo las carpetas? ¿cómo conecto una URL a una página? — el framework ya las tomó. Vos seguís las reglas y te concentrás en construir.
+      </div>
+
+      <table class="translation-table" style="margin-bottom:14px">
+        <thead>
+          <tr><th>Capa</th><th>Ejemplo</th><th>Qué regula</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Estilos</td>
+            <td><code>Tailwind</code></td>
+            <td style="color:#71717a">Cómo escribís CSS — la escala, las clases, los tokens</td>
+          </tr>
+          <tr>
+            <td>Componentes</td>
+            <td><code>React</code></td>
+            <td style="color:#71717a">Cómo construís y conectás componentes reutilizables</td>
+          </tr>
+          <tr>
+            <td>Proyecto completo</td>
+            <td><code>Next.js, Astro, Vite</code></td>
+            <td style="color:#71717a">Cómo se organiza el proyecto, las páginas, el routing, la compilación</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="background:#eff6ff;border-left:3px solid #2563eb;border-radius:0 8px 8px 0;padding:12px 16px;font-size:13px;color:#1e40af;line-height:1.6">
+        "Next.js + React + Tailwind" = tres frameworks, tres capas, un solo proyecto. Next.js usa React para los componentes, React usa Tailwind para los estilos.
+      </div>
+    </div>
+
+    <!-- 4. TIPOS DE PROYECTO + FRAMEWORK -->
+    <div class="section">
+      <div class="section-title">Cuatro tipos de proyecto — cuatro frameworks</div>
+      <div class="section-sub">La pregunta clave no es "¿qué es más moderno?" sino una sola: <strong>¿Google necesita indexar esto?</strong> Si aparece en búsquedas → sí. Si está detrás de login → no. Eso determina casi todo lo demás.</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+
+        <div style="border:1px solid #e4e4e7;border-radius:8px;padding:16px">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+            <div style="font-size:12px;font-weight:600;color:#18181b">Pieza o prototipo</div>
+            <code style="font-size:10.5px">HTML + Tailwind</code>
+          </div>
+          <div style="font-size:12px;color:#52525b;line-height:1.6;margin-bottom:10px">Una sola pantalla, exploración rápida, validación de concepto. No hay routing, no hay componentes que compartir entre páginas.</div>
+          <div style="font-size:11px;color:#71717a;margin-bottom:8px">Ej: landing de evento, email, card suelta, prototipo de UI</div>
+          <div style="font-size:11px;padding:6px 10px;background:#f4f4f5;border-radius:6px;color:#52525b">Google: no importa</div>
+        </div>
+
+        <div style="border:1px solid #e4e4e7;border-radius:8px;padding:16px">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+            <div style="font-size:12px;font-weight:600;color:#18181b">Site de contenido</div>
+            <code style="font-size:10.5px">Astro</code>
+          </div>
+          <div style="font-size:12px;color:#52525b;line-height:1.6;margin-bottom:10px">Muchas páginas, contenido que no cambia según quien lo lee. Velocidad y SEO son lo más importante. Casi sin interactividad. Astro envía cero JavaScript al browser por defecto.</div>
+          <div style="font-size:11px;color:#71717a;margin-bottom:8px">Ej: blog, docs, portfolio con muchas entradas, Wikipedia-style</div>
+          <div style="font-size:11px;padding:6px 10px;background:#eff6ff;border-radius:6px;color:#1e40af">Google indexa → SEO crítico</div>
+        </div>
+
+        <div style="border:1px solid #2563eb;border-radius:8px;padding:16px">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+            <div style="font-size:12px;font-weight:600;color:#18181b">Web de producto o app pública</div>
+            <code style="font-size:10.5px">Next.js</code>
+          </div>
+          <div style="font-size:12px;color:#52525b;line-height:1.6;margin-bottom:10px">Páginas públicas que Google indexa + partes interactivas + posiblemente sección privada con login. El más versátil y el estándar hoy.</div>
+          <div style="font-size:11px;color:#71717a;margin-bottom:8px">Ej: Airbnb, GitHub, Stripe, web de startup, e-commerce, Notion.so</div>
+          <div style="font-size:11px;padding:6px 10px;background:#eff6ff;border-radius:6px;color:#1e40af">Google indexa + interactividad</div>
+        </div>
+
+        <div style="border:1px solid #e4e4e7;border-radius:8px;padding:16px">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+            <div style="font-size:12px;font-weight:600;color:#18181b">App detrás de login</div>
+            <code style="font-size:10.5px">Vite + React</code>
+          </div>
+          <div style="font-size:12px;color:#52525b;line-height:1.6;margin-bottom:10px">App compleja que vive detrás de un login. Google no la puede indexar — nadie busca en Google el contenido de su inbox. Priorizás performance de la app, no SEO.</div>
+          <div style="font-size:11px;color:#71717a;margin-bottom:8px">Ej: Gmail, Figma app, Linear, el editor de Notion, dashboard interno</div>
+          <div style="font-size:11px;padding:6px 10px;background:#f4f4f5;border-radius:6px;color:#52525b">Nadie busca tu inbox en Google</div>
+        </div>
+
+      </div>
+
+      <div style="background:#f4f4f5;border-radius:8px;padding:14px 16px;font-size:13px;color:#3f3f46;line-height:1.7">
+        <strong>Un producto puede tener las dos partes:</strong> Airbnb.com (listados públicos) → Next.js porque Google indexa los departamentos. El panel del host (detrás de login) → podría ser Vite. Notion.so (marketing) → Next.js. El editor de Notion (la app) → Vite + React. No es uno o el otro — es según la parte del producto.
+      </div>
+    </div>
+
+    <!-- 3. TODO TERMINA EN HTML -->
+    <div class="section">
+      <div class="section-title">Todo termina en HTML</div>
+      <div class="section-sub">Lo que el browser siempre recibe es HTML + CSS + JS. El framework — Next.js, Astro, Vite — traduce lo que vos escribís al formato que el browser entiende. Vos escribís la UI — componentes, layout, interacciones —; el framework hace la conversión.</div>
+
+      <div style="display:grid;grid-template-columns:1fr 48px 1fr;align-items:center;gap:0;margin-bottom:16px">
+        <div>
+          <div class="group-label" style="margin-bottom:8px">Lo que vos escribís</div>
+          <div style="background:#f4f4f5;border:1px solid #e4e4e7;border-radius:8px;padding:14px">
+            <div style="font-size:11px;font-weight:600;color:#52525b;margin-bottom:8px">Button.tsx — archivo fuente</div>
+            <div style="background:#18181b;border-radius:6px;padding:10px;font-family:'SF Mono',monospace;font-size:10.5px;color:#e4e4e7;line-height:1.8">
+              <span style="color:#93c5fd">export function</span> <span style="color:#fde68a">Button</span>() {<br>
+              &nbsp;&nbsp;<span style="color:#93c5fd">return</span> (<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;<span style="color:#86efac">button</span> <span style="color:#fde68a">className</span>="px-4 py-2"&gt;<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Click<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span style="color:#86efac">button</span>&gt;<br>
+              &nbsp;&nbsp;)<br>
+              }
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center;font-size:20px;color:#a1a1aa">→</div>
+        <div>
+          <div class="group-label" style="margin-bottom:8px">Lo que el browser recibe</div>
+          <div style="background:#f4f4f5;border:1px solid #e4e4e7;border-radius:8px;padding:14px">
+            <div style="font-size:11px;font-weight:600;color:#52525b;margin-bottom:8px">HTML generado por Next.js</div>
+            <div style="background:#18181b;border-radius:6px;padding:10px;font-family:'SF Mono',monospace;font-size:10.5px;color:#e4e4e7;line-height:1.8">
+              &lt;<span style="color:#86efac">button</span> <span style="color:#fde68a">class</span>="px-4 py-2"&gt;<br>
+              &nbsp;&nbsp;Click<br>
+              &lt;/<span style="color:#86efac">button</span>&gt;
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:#eff6ff;border-left:3px solid #2563eb;border-radius:0 8px 8px 0;padding:12px 16px;font-size:13px;color:#1e40af;line-height:1.6">
+        Podés crear una imagen desde Photoshop, Paint o Illustrator — tres apps distintas, mismo resultado: un PNG. <strong>HTML es el PNG del browser</strong>: el formato que Chrome, Safari o Firefox necesitan para mostrar una experiencia. El framework es la app que hace la exportación.
+      </div>
+    </div>
+
+    <!-- 9. BRIEF DEL DESIGNER -->
+    <div class="section">
+      <div class="section-title">Brief del designer — ¿cómo pedirle a Claude Code el framework correcto?</div>
+      <div class="section-sub">Dos ejes independientes. Primero: ¿qué tenés en Figma? Segundo: ¿qué tipo de proyecto es? (ya lo vimos arriba — eso define el framework). Las dos respuestas juntas determinan el setup.</div>
+
+      <div class="sub-title" style="margin-bottom:10px">¿Qué tenés en Figma?</div>
+      <table class="translation-table" style="margin-bottom:24px">
+        <thead>
+          <tr>
+            <th>Estado del diseño</th>
+            <th>Qué implica para el código</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="white-space:nowrap">Nada — cero material</td>
+            <td style="color:#71717a">El setup depende solo de la escala y tipo de proyecto. No necesitás Figma para empezar.</td>
+          </tr>
+          <tr>
+            <td style="white-space:nowrap">Solo brandbook o referencias</td>
+            <td style="color:#71717a">Suficiente para definir tokens (color, tipografía). Arrancás simple y construís el sistema en el camino.</td>
+          </tr>
+          <tr>
+            <td style="white-space:nowrap">Pantallas sin componentizar</td>
+            <td style="color:#71717a">Identificar qué se repite antes de codear. Podés hacerlo en Figma <strong>o directamente en código</strong> con Claude, generando los componentes directo en React.</td>
+          </tr>
+          <tr>
+            <td style="white-space:nowrap">Pantallas componentizadas</td>
+            <td style="color:#71717a">Mapeo directo: cada componente Figma → un archivo <code>.tsx</code> en React. Con el plugin Figma MCP podés conectar Claude y pedirle que genere los componentes con tus tokens y variantes.</td>
+          </tr>
+          <tr>
+            <td style="white-space:nowrap">Library de componentes completa</td>
+            <td style="color:#71717a">Con el plugin Figma MCP, Claude lee tu library entera y genera todos los componentes en React respetando tus tokens, variantes y propiedades.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="sub-title" style="margin-bottom:10px">Qué implica cada tipo de proyecto en tu flujo con Claude Code</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+
+        <div style="border:1px solid #e4e4e7;border-radius:8px;padding:14px">
+          <div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:4px">Pieza o prototipo</div>
+          <div style="font-size:11px;color:#71717a;margin-bottom:10px">Landing de evento, email, card, UI para validar</div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:#52525b">Contexto Claude</span><span style="color:#18181b">bajo — todo en un archivo</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:#52525b">Compartir</span><span style="color:#18181b">mandás el .html por Slack</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:#52525b">GitHub</span><span style="color:#71717a">no hace falta</span></div>
+          </div>
+        </div>
+
+        <div style="border:1px solid #e4e4e7;border-radius:8px;padding:14px">
+          <div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:4px">Site de contenido</div>
+          <div style="font-size:11px;color:#71717a;margin-bottom:10px">Blog, docs, portfolio con entradas, noticias</div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:#52525b">Contexto Claude</span><span style="color:#18181b">medio — varios archivos</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:#52525b">Compartir</span><span style="color:#18181b">deploy a Vercel → URL pública</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:#52525b">GitHub</span><span style="color:#18181b">recomendado para el deploy</span></div>
+          </div>
+        </div>
+
+        <div style="border:1px solid #e4e4e7;border-radius:8px;padding:14px">
+          <div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:4px">Web de producto o app pública</div>
+          <div style="font-size:11px;color:#71717a;margin-bottom:10px">Startup, e-commerce, marketplace, web con login</div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:#52525b">Contexto Claude</span><span style="color:#18181b">alto — muchos archivos y contexto</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:#52525b">Compartir</span><span style="color:#18181b">deploy a Vercel → URL pública</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:#52525b">GitHub</span><span style="color:#18181b;font-weight:600">imprescindible</span></div>
+          </div>
+        </div>
+
+        <div style="border:1px solid #e4e4e7;border-radius:8px;padding:14px">
+          <div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:4px">App detrás de login</div>
+          <div style="font-size:11px;color:#71717a;margin-bottom:10px">Dashboard, panel admin, herramienta interna</div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:#52525b">Contexto Claude</span><span style="color:#18181b">alto — app compleja, mucho contexto</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:#52525b">Compartir</span><span style="color:#18181b">deploy restringido o internamente</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:#52525b">GitHub</span><span style="color:#18181b;font-weight:600">imprescindible</span></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="background:#eff6ff;border-left:3px solid #2563eb;border-radius:0 8px 8px 0;padding:14px 16px;font-size:13px;color:#1e40af;line-height:1.7">
+        <strong>¿Necesitás Figma para tener componentes?</strong> No. Con Claude + shadcn/ui podés armar tu library directamente en código sin tocar Figma. shadcn te da componentes ya diseñados como base — los customizás y los hacés tuyos. El flujo "Figma → Código" sigue siendo válido, pero "Código solo" o "Código → Figma" también son workflows reales y cada vez más comunes.
+      </div>
+    </div>
+
+    <!-- 1. EL PROBLEMA QUE REACT RESUELVE -->
+    <div class="section">
+      <div class="section-title">¿Por qué se usa tanto React?</div>
+      <div class="section-sub">HTML solo no tiene componentes. Si repetís algo, repetís el código. React resuelve exactamente el mismo problema que los componentes en Figma.</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:16px">
+        <div>
+          <div class="group-label" style="color:#a1a1aa;margin-bottom:8px">Sin React — HTML puro</div>
+          <div style="background:#fafafa;border:1px solid #e4e4e7;border-radius:8px;padding:14px">
+            <div style="font-family:'SF Mono',monospace;font-size:10.5px;color:#3f3f46;line-height:2">
+              <span style="color:#a1a1aa">&lt;!-- página 1 --&gt;</span><br>
+              &lt;button class="px-4 py-2 bg-blue-600 text-white rounded"&gt;Guardar&lt;/button&gt;<br><br>
+              <span style="color:#a1a1aa">&lt;!-- página 2 --&gt;</span><br>
+              &lt;button class="px-4 py-2 bg-blue-600 text-white rounded"&gt;Enviar&lt;/button&gt;<br><br>
+              <span style="color:#a1a1aa">&lt;!-- página 3 --&gt;</span><br>
+              &lt;button class="px-4 py-2 bg-blue-600 text-white rounded"&gt;Confirmar&lt;/button&gt;
+            </div>
+          </div>
+          <div style="margin-top:8px;font-size:12px;color:#71717a;line-height:1.5">Cambiás el padding → editás en 3 lugares. Con 40 páginas, son 40 ediciones. Es exactamente trabajar con frames "detacheados" en Figma.</div>
+        </div>
+        <div>
+          <div class="group-label" style="color:#2563eb;margin-bottom:8px">Con React — componente</div>
+          <div style="background:#fafafa;border:1px solid #e4e4e7;border-radius:8px;padding:14px">
+            <div style="font-family:'SF Mono',monospace;font-size:10.5px;color:#3f3f46;line-height:2">
+              <span style="color:#a1a1aa">// Button.tsx — definido una vez</span><br>
+              &lt;button className="px-4 py-2 bg-blue-600..."&gt;<br>
+              &nbsp;&nbsp;{label}<br>
+              &lt;/button&gt;<br><br>
+              <span style="color:#a1a1aa">// Usado donde sea</span><br>
+              &lt;<span style="color:#2563eb">Button</span> label="Guardar" /&gt;<br>
+              &lt;<span style="color:#2563eb">Button</span> label="Enviar" /&gt;<br>
+              &lt;<span style="color:#2563eb">Button</span> label="Confirmar" /&gt;
+            </div>
+          </div>
+          <div style="margin-top:8px;font-size:12px;color:#71717a;line-height:1.5">Cambiás el padding en <code>Button.tsx</code> → cambia en todos lados automáticamente. Igual que editar el componente master en Figma.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. CÓMO ELEGIR COMPONENTES -->
+    <div class="section">
+      <div class="section-title">Cómo elegir qué componentizar</div>
+      <div class="section-sub">El criterio es casi idéntico al de Figma. Si en diseño lo hubieras hecho componente, en React también.</div>
+
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="display:grid;grid-template-columns:8px 1fr;gap:12px;align-items:flex-start;padding:10px 14px;background:#f4f4f5;border-radius:8px">
+          <div style="width:8px;height:8px;background:#2563eb;border-radius:50%;margin-top:5px"></div>
+          <div style="font-size:13px;color:#3f3f46;line-height:1.5"><strong>¿Aparece más de una vez?</strong> → componente. Un Button que usás en 10 páginas = un archivo <code>Button.tsx</code>.</div>
+        </div>
+        <div style="display:grid;grid-template-columns:8px 1fr;gap:12px;align-items:flex-start;padding:10px 14px;background:#f4f4f5;border-radius:8px">
+          <div style="width:8px;height:8px;background:#2563eb;border-radius:50%;margin-top:5px"></div>
+          <div style="font-size:13px;color:#3f3f46;line-height:1.5"><strong>¿Cambia según contexto?</strong> → componente con props. Si tiene variantes (tamaño, color, estado), es un componente con props — no varios archivos separados.</div>
+        </div>
+        <div style="display:grid;grid-template-columns:8px 1fr;gap:12px;align-items:flex-start;padding:10px 14px;background:#f4f4f5;border-radius:8px">
+          <div style="width:8px;height:8px;background:#2563eb;border-radius:50%;margin-top:5px"></div>
+          <div style="font-size:13px;color:#3f3f46;line-height:1.5"><strong>¿Es único en toda la app, nunca se repite?</strong> → puede ir directo en la página, sin crear un archivo aparte.</div>
+        </div>
+        <div style="display:grid;grid-template-columns:8px 1fr;gap:12px;align-items:flex-start;padding:10px 14px;background:#eff6ff;border-radius:8px">
+          <div style="width:8px;height:8px;background:#2563eb;border-radius:50%;margin-top:5px"></div>
+          <div style="font-size:13px;color:#1e40af;line-height:1.5"><strong>Regla rápida:</strong> si en Figma lo hubieras componentizado, en React también. El instinto de diseñadora aplica directo.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. COMPONENTES -->
+    <div class="section">
+      <div class="section-title">Componentes — cómo se construyen y usan</div>
+      <div class="section-sub">Un archivo por componente. Las variantes adentro vía props — igual que las component properties de Figma. Los estilos (Tailwind) adentro también. Todo junto en un solo lugar.</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:16px">
+        <div>
+          <div class="group-label" style="margin-bottom:8px">Figma — Component properties</div>
+          <div style="background:#f4f4f5;border-radius:8px;padding:14px;border:1px solid #e4e4e7">
+            <div style="background:white;border-radius:6px;border:1px solid #e4e4e7;padding:10px 12px">
+              <div style="font-size:11px;font-weight:600;color:#52525b;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.04em">Component properties</div>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <div style="display:flex;justify-content:space-between;align-items:center">
+                  <span style="font-size:12px;color:#3f3f46">variant</span>
+                  <span style="font-size:11px;font-family:monospace;background:#f4f4f5;padding:2px 8px;border-radius:4px;color:#18181b">primary / ghost</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center">
+                  <span style="font-size:12px;color:#3f3f46">size</span>
+                  <span style="font-size:11px;font-family:monospace;background:#f4f4f5;padding:2px 8px;border-radius:4px;color:#18181b">sm / md / lg</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center">
+                  <span style="font-size:12px;color:#3f3f46">label</span>
+                  <span style="font-size:11px;font-family:monospace;background:#f4f4f5;padding:2px 8px;border-radius:4px;color:#18181b">text</span>
+                </div>
+              </div>
+            </div>
+            <div style="font-size:11px;color:#71717a;margin-top:10px;line-height:1.5">Seleccionás la instancia → ves estas propiedades en el panel derecho de Figma</div>
+          </div>
+        </div>
+        <div>
+          <div class="group-label" style="margin-bottom:8px">React — Props en Button.tsx</div>
+          <div style="background:#18181b;border-radius:8px;padding:14px;font-family:'SF Mono',monospace;font-size:10.5px;color:#e4e4e7;line-height:2">
+            <span style="color:#93c5fd">export function</span> <span style="color:#fde68a">Button</span>({ <span style="color:#86efac">variant</span>, <span style="color:#86efac">size</span>, <span style="color:#86efac">label</span> }) {<br>
+            &nbsp;&nbsp;<span style="color:#93c5fd">return</span> (<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;<span style="color:#fca5a5">button</span> className={styles[<span style="color:#86efac">variant</span>][<span style="color:#86efac">size</span>]}&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<span style="color:#86efac">label</span>}<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span style="color:#fca5a5">button</span>&gt;<br>
+            &nbsp;&nbsp;)<br>
+            }<br><br>
+            <span style="color:#a1a1aa">// Se usa así:</span><br>
+            &lt;<span style="color:#93c5fd">Button</span> variant="primary" size="md" label="Guardar" /&gt;<br>
+            &lt;<span style="color:#93c5fd">Button</span> variant="ghost" size="sm" label="Cancelar" /&gt;
+          </div>
+        </div>
+      </div>
+
+      <div style="background:#eff6ff;border-left:3px solid #2563eb;border-radius:0 8px 8px 0;padding:12px 16px;font-size:13px;color:#1e40af;line-height:1.6">
+        Props = component properties de Figma. Tailwind va directo en el JSX — los estilos no viven en un CSS separado, viven en el componente. En HTML puro necesitabas saltar entre dos archivos para entender un componente; en React todo está junto.
+      </div>
+    </div>
+
+    <!-- 6. ESTRUCTURA DEL PROYECTO -->
+    <div class="section">
+      <div class="section-title">Estructura de proyecto según el framework</div>
+      <div class="section-sub">Cuando abrís un repositorio, la estructura de carpetas te dice qué framework usa. Cada uno tiene sus convenciones — reconocerlas es saber "leer" un proyecto sin tocar una línea de código.</div>
+
+      <!-- Segmented control -->
+      <div style="display:inline-flex;background:#f4f4f5;border-radius:8px;padding:3px;gap:2px;margin-bottom:16px">
+        <button id="fwbtn-next" onclick="showFramework('next', this)" style="font-size:12px;font-weight:500;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;background:#18181b;color:white;transition:all 0.15s">Next.js</button>
+        <button id="fwbtn-vite" onclick="showFramework('vite', this)" style="font-size:12px;font-weight:500;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;background:transparent;color:#71717a;transition:all 0.15s">Vite + React</button>
+        <button id="fwbtn-astro" onclick="showFramework('astro', this)" style="font-size:12px;font-weight:500;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;background:transparent;color:#71717a;transition:all 0.15s">Astro</button>
+        <button id="fwbtn-html" onclick="showFramework('html', this)" style="font-size:12px;font-weight:500;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;background:transparent;color:#71717a;transition:all 0.15s">HTML + Tailwind</button>
+      </div>
+
+      <!-- HTML + Tailwind panel -->
+      <div id="fw-html" class="fw-panel" style="display:none;grid-template-columns:1fr 1fr;gap:24px">
+        <div style="background:#18181b;border-radius:8px;padding:16px 20px;font-family:'SF Mono',monospace;font-size:12px;line-height:2.2;color:#e4e4e7">
+          mi-proyecto/<br>
+          <span style="color:#93c5fd">├── index.html</span><br>
+          <span style="color:#93c5fd">├── about.html</span><br>
+          <span style="color:#fde68a">├── tokens.css</span><br>
+          <span style="color:#d4d4d8">├── assets/</span><br>
+          <span style="color:#a1a1aa">&nbsp;&nbsp;&nbsp;└── logo.svg</span><br>
+          <span style="color:#fca5a5">└── data.json</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;justify-content:center">
+          <div style="display:flex;gap:10px;align-items:flex-start">
+            <div style="width:10px;height:10px;background:#93c5fd;border-radius:2px;margin-top:3px;flex-shrink:0"></div>
+            <div><div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:2px">index.html + about.html</div><div style="font-size:12px;color:#52525b;line-height:1.5">Un archivo por página. Button y Card no tienen archivo propio — el HTML se repite en cada página.</div></div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start">
+            <div style="width:10px;height:10px;background:#fde68a;border-radius:2px;margin-top:3px;flex-shrink:0"></div>
+            <div><div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:2px">tokens.css</div><div style="font-size:12px;color:#52525b;line-height:1.5">Variables CSS en la raíz — color, tipografía, espaciado. Cada HTML lo importa con <code>&lt;link&gt;</code>.</div></div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start">
+            <div style="width:10px;height:10px;background:#d4d4d8;border-radius:2px;margin-top:3px;flex-shrink:0"></div>
+            <div><div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:2px">assets/</div><div style="font-size:12px;color:#52525b;line-height:1.5">Imágenes, logo, íconos. Se referencia con rutas relativas: <code>src="assets/logo.svg"</code></div></div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start">
+            <div style="width:10px;height:10px;background:#fca5a5;border-radius:2px;margin-top:3px;flex-shrink:0"></div>
+            <div><div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:2px">data.json</div><div style="font-size:12px;color:#52525b;line-height:1.5">Lista de contenido del proyecto. En HTML puro se carga con un script — es más manual que en los otros frameworks.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Next.js panel -->
+      <div id="fw-next" class="fw-panel" style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+        <div style="background:#18181b;border-radius:8px;padding:16px 20px;font-family:'SF Mono',monospace;font-size:12px;line-height:2.2;color:#e4e4e7">
+          mi-proyecto/<br>
+          <span style="color:#93c5fd">├── app/</span><br>
+          <span style="color:#a1a1aa">&nbsp;&nbsp;&nbsp;├── page.tsx</span><br>
+          <span style="color:#a1a1aa">&nbsp;&nbsp;&nbsp;└── about/page.tsx</span><br>
+          <span style="color:#86efac">├── components/</span><br>
+          <span style="color:#a1a1aa">&nbsp;&nbsp;&nbsp;├── Button.tsx</span><br>
+          <span style="color:#a1a1aa">&nbsp;&nbsp;&nbsp;└── Card.tsx</span><br>
+          <span style="color:#fde68a">├── styles/</span><br>
+          <span style="color:#a1a1aa">&nbsp;&nbsp;&nbsp;└── tokens.css</span><br>
+          <span style="color:#d4d4d8">├── public/</span><br>
+          <span style="color:#a1a1aa">&nbsp;&nbsp;&nbsp;└── logo.svg</span><br>
+          <span style="color:#fca5a5">├── data/</span><br>
+          <span style="color:#a1a1aa">&nbsp;&nbsp;&nbsp;└── items.json</span><br>
+          <span style="color:#e4e4e7">├── tailwind.config.js</span><br>
+          <span style="color:#e4e4e7">└── package.json</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;justify-content:center">
+          <div style="display:flex;gap:10px;align-items:flex-start">
+            <div style="width:10px;height:10px;background:#93c5fd;border-radius:2px;margin-top:3px;flex-shrink:0"></div>
+            <div><div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:2px">app/</div><div style="font-size:12px;color:#52525b;line-height:1.5">Páginas y rutas. <code>page.tsx</code> → <code>/</code> · <code>about/page.tsx</code> → <code>/about</code></div></div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start">
+            <div style="width:10px;height:10px;background:#86efac;border-radius:2px;margin-top:3px;flex-shrink:0"></div>
+            <div><div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:2px">components/</div><div style="font-size:12px;color:#52525b;line-height:1.5">Button y Card como archivos propios. Reutilizables en cualquier página.</div></div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start">
+            <div style="width:10px;height:10px;background:#fde68a;border-radius:2px;margin-top:3px;flex-shrink:0"></div>
+            <div><div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:2px">styles/tokens.css</div><div style="font-size:12px;color:#52525b;line-height:1.5">CSS custom properties — color, tipografía, espaciado.</div></div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start">
+            <div style="width:10px;height:10px;background:#d4d4d8;border-radius:2px;margin-top:3px;flex-shrink:0"></div>
+            <div><div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:2px">public/logo.svg</div><div style="font-size:12px;color:#52525b;line-height:1.5">Assets estáticos. El browser los accede directo en <code>/logo.svg</code>.</div></div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start">
+            <div style="width:10px;height:10px;background:#fca5a5;border-radius:2px;margin-top:3px;flex-shrink:0"></div>
+            <div><div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:2px">data/items.json</div><div style="font-size:12px;color:#52525b;line-height:1.5">Lista de contenido que el proyecto muestra — productos, artículos, lo que sea. El componente Card lo lee y genera una card por cada item automáticamente.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vite + React panel -->
+      <div id="fw-vite" class="fw-panel" style="display:none;grid-template-columns:1fr 1fr;gap:24px">
+        <div style="background:#18181b;border-radius:8px;padding:16px 20px;font-family:'SF Mono',monospace;font-size:12px;line-height:2.2;color:#e4e4e7">
+          mi-proyecto/<br>
+          <span style="color:#93c5fd">├── src/</span><br>
+          <span style="color:#a1a1aa">&nbsp;&nbsp;&nbsp;├── pages/</span><br>
+          <span style="color:#a1a1aa">&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── Home.tsx</span><br>
+          <span style="color:#a1a1aa">&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── About.tsx</span><br>
+          <span style="color:#86efac">&nbsp;&nbsp;&nbsp;├── components/</span><br>
+          <span style="color:#a1a1aa">&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── Button.tsx</span><br>
+          <span style="color:#a1a1aa">&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── Card.tsx</span><br>
+          <span style="color:#fde68a">&nbsp;&nbsp;&nbsp;├── styles/</span><br>
+          <span style="color:#a1a1aa">&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── tokens.css</span><br>
+          <span style="color:#fca5a5">&nbsp;&nbsp;&nbsp;├── data/</span><br>
+          <span style="color:#a1a1aa">&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── items.json</span><br>
+          <span style="color:#a1a1aa">&nbsp;&nbsp;&nbsp;├── App.tsx</span><br>
+          <span style="color:#a1a1aa">&nbsp;&nbsp;&nbsp;└── main.tsx</span><br>
+          <span style="color:#d4d4d8">├── public/</span><br>
+          <span style="color:#a1a1aa">&nbsp;&nbsp;&nbsp;└── logo.svg</span><br>
+          <span style="color:#e4e4e7">├── index.html</span><br>
+          <span style="color:#e4e4e7">└── package.json</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;justify-content:center">
+          <div style="display:flex;gap:10px;align-items:flex-start">
+            <div style="width:10px;height:10px;background:#93c5fd;border-radius:2px;margin-top:3px;flex-shrink:0"></div>
+            <div><div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:2px">src/pages/</div><div style="font-size:12px;color:#52525b;line-height:1.5">Las "páginas" son componentes normales. La conexión entre cada URL y su pantalla (el routing) se define manualmente en <code>App.tsx</code> con React Router.</div></div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start">
+            <div style="width:10px;height:10px;background:#86efac;border-radius:2px;margin-top:3px;flex-shrink:0"></div>
+            <div><div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:2px">src/components/</div><div style="font-size:12px;color:#52525b;line-height:1.5">Button y Card — igual que en Next.js, un archivo por componente.</div></div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start">
+            <div style="width:10px;height:10px;background:#fde68a;border-radius:2px;margin-top:3px;flex-shrink:0"></div>
+            <div><div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:2px">src/styles/tokens.css</div><div style="font-size:12px;color:#52525b;line-height:1.5">Mismo archivo de tokens. Se importa en <code>main.tsx</code> una vez.</div></div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start">
+            <div style="width:10px;height:10px;background:#fca5a5;border-radius:2px;margin-top:3px;flex-shrink:0"></div>
+            <div><div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:2px">src/data/items.json</div><div style="font-size:12px;color:#52525b;line-height:1.5">Lista de contenido que los componentes leen para renderizar. Va dentro de <code>src/</code> porque el código lo accede directamente, no el browser.</div></div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start">
+            <div style="width:10px;height:10px;background:#d4d4d8;border-radius:2px;margin-top:3px;flex-shrink:0"></div>
+            <div><div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:2px">public/logo.svg</div><div style="font-size:12px;color:#52525b;line-height:1.5">Assets estáticos fuera de <code>src/</code>. Accesible en <code>/logo.svg</code> igual que en Next.js.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Astro panel -->
+      <div id="fw-astro" class="fw-panel" style="display:none;grid-template-columns:1fr 1fr;gap:24px">
+        <div style="background:#18181b;border-radius:8px;padding:16px 20px;font-family:'SF Mono',monospace;font-size:12px;line-height:2.2;color:#e4e4e7">
+          mi-proyecto/<br>
+          <span style="color:#93c5fd">├── src/</span><br>
+          <span style="color:#a1a1aa">&nbsp;&nbsp;&nbsp;├── pages/</span><br>
+          <span style="color:#a1a1aa">&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── index.astro</span><br>
+          <span style="color:#a1a1aa">&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── about.astro</span><br>
+          <span style="color:#86efac">&nbsp;&nbsp;&nbsp;├── components/</span><br>
+          <span style="color:#a1a1aa">&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── Button.astro</span><br>
+          <span style="color:#a1a1aa">&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── Card.astro</span><br>
+          <span style="color:#fde68a">&nbsp;&nbsp;&nbsp;├── layouts/</span><br>
+          <span style="color:#a1a1aa">&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── Base.astro</span><br>
+          <span style="color:#a1a1aa">&nbsp;&nbsp;&nbsp;├── styles/</span><br>
+          <span style="color:#a1a1aa">&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── tokens.css</span><br>
+          <span style="color:#fca5a5">&nbsp;&nbsp;&nbsp;└── data/</span><br>
+          <span style="color:#a1a1aa">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── items.json</span><br>
+          <span style="color:#d4d4d8">├── public/</span><br>
+          <span style="color:#a1a1aa">&nbsp;&nbsp;&nbsp;└── logo.svg</span><br>
+          <span style="color:#e4e4e7">└── package.json</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;justify-content:center">
+          <div style="display:flex;gap:10px;align-items:flex-start">
+            <div style="width:10px;height:10px;background:#93c5fd;border-radius:2px;margin-top:3px;flex-shrink:0"></div>
+            <div><div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:2px">src/pages/</div><div style="font-size:12px;color:#52525b;line-height:1.5">Rutas automáticas como Next.js, pero con archivos <code>.astro</code>. <code>index.astro</code> → <code>/</code> · <code>about.astro</code> → <code>/about</code></div></div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start">
+            <div style="width:10px;height:10px;background:#86efac;border-radius:2px;margin-top:3px;flex-shrink:0"></div>
+            <div><div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:2px">src/components/</div><div style="font-size:12px;color:#52525b;line-height:1.5">Button y Card en <code>.astro</code> — sin interactividad por defecto. Si necesitaran state, usarías <code>.tsx</code>.</div></div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start">
+            <div style="width:10px;height:10px;background:#fde68a;border-radius:2px;margin-top:3px;flex-shrink:0"></div>
+            <div><div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:2px">src/layouts/Base.astro</div><div style="font-size:12px;color:#52525b;line-height:1.5">El "envolvente" compartido entre páginas — header, footer, <code>&lt;head&gt;</code>, imports de tokens.</div></div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start">
+            <div style="width:10px;height:10px;background:#fca5a5;border-radius:2px;margin-top:3px;flex-shrink:0"></div>
+            <div><div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:2px">src/data/items.json</div><div style="font-size:12px;color:#52525b;line-height:1.5">Lista de contenido que las páginas leen para renderizar. Va dentro de <code>src/</code> porque lo accede el código, no el browser.</div></div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start">
+            <div style="width:10px;height:10px;background:#d4d4d8;border-radius:2px;margin-top:3px;flex-shrink:0"></div>
+            <div><div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:2px">public/logo.svg</div><div style="font-size:12px;color:#52525b;line-height:1.5">Assets estáticos. Igual que en Next.js y Vite — accesible en <code>/logo.svg</code>.</div></div>
+          </div>
+        </div>
+      </div>
+
+
+<div style="background:#f4f4f5;border-radius:8px;padding:16px 18px;margin-top:24px;margin-bottom:16px">
+        <div style="font-size:13px;font-weight:600;color:#18181b;margin-bottom:8px">public/ (la carpeta) ≠ páginas públicas (sin login)</div>
+        <div style="font-size:13px;color:#52525b;line-height:1.7;margin-bottom:12px">Son dos usos completamente distintos de la palabra "público". La carpeta <code>public/</code> es donde viven los archivos estáticos (imágenes, fuentes). No tiene ninguna relación con si la página requiere login o no.</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:12px">
+          <div>
+            <div style="font-weight:600;color:#18181b;margin-bottom:6px">Qué va en public/</div>
+            <div style="display:flex;flex-direction:column;gap:4px;color:#52525b;line-height:1.6">
+              <div><code>public/images/</code> — fotos, ilustraciones, backgrounds</div>
+              <div><code>public/fonts/</code> — fuentes custom (si no usás Google Fonts)</div>
+              <div><code>public/favicon.ico</code> — el ícono del tab del browser</div>
+            </div>
+          </div>
+          <div>
+            <div style="font-weight:600;color:#18181b;margin-bottom:6px">Qué NO va en public/</div>
+            <div style="display:flex;flex-direction:column;gap:4px;color:#52525b;line-height:1.6">
+              <div>Íconos de UI (botones, nav) → usás Lucide o Heroicons como componentes, no archivos locales</div>
+              <div>Muchas imágenes (e-commerce) → usás un CDN externo como Cloudinary, no archivos en la carpeta</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sub-title" style="margin-bottom:6px">Páginas públicas, privadas y flows — en las carpetas</div>
+      <div style="font-size:13px;color:#71717a;margin-bottom:12px;line-height:1.5">La arquitectura de información de Figma — qué es público, qué requiere login, qué es un flow de pasos — se mapea directamente a la estructura de <code>app/</code>.</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+        <div style="background:#18181b;border-radius:8px;padding:16px 20px;font-family:'SF Mono',monospace;font-size:11.5px;line-height:2.1;color:#e4e4e7">
+          app/<br>
+          <span style="color:#a1a1aa">&nbsp;├── (público)/</span><span style="color:#52525b;font-size:10px">&nbsp;&nbsp;← sin login</span><br>
+          <span style="color:#a1a1aa">&nbsp;│&nbsp;&nbsp;&nbsp;├── page.tsx</span><span style="color:#52525b;font-size:10px">&nbsp;→ /</span><br>
+          <span style="color:#a1a1aa">&nbsp;│&nbsp;&nbsp;&nbsp;└── precios/page.tsx</span><br>
+          <span style="color:#93c5fd">&nbsp;├── (privado)/</span><span style="color:#52525b;font-size:10px">&nbsp;← requiere login</span><br>
+          <span style="color:#a1a1aa">&nbsp;│&nbsp;&nbsp;&nbsp;├── dashboard/page.tsx</span><br>
+          <span style="color:#a1a1aa">&nbsp;│&nbsp;&nbsp;&nbsp;└── configuracion/page.tsx</span><br>
+          <span style="color:#86efac">&nbsp;└── checkout/</span><span style="color:#52525b;font-size:10px">&nbsp;← flow de pasos</span><br>
+          <span style="color:#a1a1aa">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── carrito/page.tsx</span><br>
+          <span style="color:#a1a1aa">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── envio/page.tsx</span><br>
+          <span style="color:#a1a1aa">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── confirmacion/page.tsx</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;justify-content:center">
+          <div style="display:flex;gap:10px;align-items:flex-start">
+            <div style="width:10px;height:10px;background:#a1a1aa;border-radius:2px;margin-top:3px;flex-shrink:0"></div>
+            <div>
+              <div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:2px">(público) — sin login</div>
+              <div style="font-size:12px;color:#52525b;line-height:1.5">Los paréntesis agrupan páginas sin aparecer en la URL. Cualquiera puede entrar.</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start">
+            <div style="width:10px;height:10px;background:#93c5fd;border-radius:2px;margin-top:3px;flex-shrink:0"></div>
+            <div>
+              <div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:2px">(privado) — requiere login</div>
+              <div style="font-size:12px;color:#52525b;line-height:1.5">Next.js chequea si el usuario está autenticado antes de cargar. Si no → lo manda al login.</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start">
+            <div style="width:10px;height:10px;background:#86efac;border-radius:2px;margin-top:3px;flex-shrink:0"></div>
+            <div>
+              <div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:2px">checkout/ — flow de pasos</div>
+              <div style="font-size:12px;color:#52525b;line-height:1.5">Cada paso = una página. La lógica de "no podés saltear el paso 2" se maneja en el código — Next.js solo da la estructura.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. TIPOS DE ARCHIVO -->
+    <div class="section">
+      <div class="section-title">Los tipos de archivo — qué hace cada uno</div>
+      <div class="section-sub">Ahora que ves la estructura del proyecto, cada extensión tiene un lugar y un rol claro.</div>
+
+      <table class="translation-table">
+        <thead>
+          <tr>
+            <th>Extensión</th>
+            <th>Qué hace</th>
+            <th>Dónde aparece</th>
+            <th>Regla simple</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>.html</code></td>
+            <td>Estructura y contenido</td>
+            <td style="color:#71717a">Proyectos simples, páginas estáticas</td>
+            <td style="font-weight:600;color:#18181b">esto existe</td>
+          </tr>
+          <tr>
+            <td><code>.css</code></td>
+            <td>Estilos visuales</td>
+            <td style="color:#71717a"><code>globals.css</code>, <code>tokens.css</code></td>
+            <td style="font-weight:600;color:#18181b">así se ve</td>
+          </tr>
+          <tr>
+            <td><code>.js</code> / <code>.ts</code></td>
+            <td>Lógica, interacciones, cálculos</td>
+            <td style="color:#71717a">Scripts, helpers, configuraciones</td>
+            <td style="font-weight:600;color:#18181b">hacé algo</td>
+          </tr>
+          <tr>
+            <td><code>.jsx</code> / <code>.tsx</code></td>
+            <td>Componente React — HTML y lógica en un mismo archivo</td>
+            <td style="color:#71717a"><code>Button.tsx</code>, <code>Card.tsx</code></td>
+            <td style="font-weight:600;color:#2563eb">esto existe + hacé algo</td>
+          </tr>
+          <tr>
+            <td><code>.json</code></td>
+            <td>Datos estructurados. Sin lógica, solo valores</td>
+            <td style="color:#71717a"><code>package.json</code>, <code>tokens.json</code></td>
+            <td style="font-weight:600;color:#18181b">esta es la info</td>
+          </tr>
+          <tr>
+            <td><code>.md</code></td>
+            <td>Documentación en texto. Como un README o esta guía</td>
+            <td style="color:#71717a"><code>README.md</code>, notas del proyecto</td>
+            <td style="font-weight:600;color:#18181b">leé esto</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="margin-top:14px;padding:12px 16px;background:#f4f4f5;border-radius:8px;font-size:13px;color:#3f3f46;line-height:1.6">
+        <strong>.tsx vs .jsx</strong> — son lo mismo, pero <code>.tsx</code> usa TypeScript: una versión de JS con más validaciones. En proyectos modernos vas a ver casi siempre <code>.tsx</code>. No hace falta aprenderlo ahora — solo reconocerlo.
+      </div>
+      <div style="margin-top:10px;padding:12px 16px;background:#f4f4f5;border-radius:8px;font-size:13px;color:#3f3f46;line-height:1.6">
+        <strong>.json no es código</strong> — es más parecido a un <code>.md</code> que a un <code>.js</code>. Solo guarda información estructurada: listas, valores, pares clave-valor. El programa lo lee, pero el JSON mismo no hace nada.
+      </div>
+    </div>
+
+    <!-- CIERRE -->
+    <div class="section">
+      <div class="section-title">Próximo paso: el backend</div>
+      <div class="section-sub">Todo lo que vimos hasta acá — componentes, layout, estructura de proyecto — es el frontend: lo que se ve y se construye. Pero dos preguntas que aparecen enseguida llevan al siguiente nivel.</div>
+
+      <div style="font-size:13px;color:#3f3f46;line-height:1.85;max-width:660px;display:flex;flex-direction:column;gap:20px">
+
+        <div>
+          <div style="font-size:13px;font-weight:600;color:#18181b;margin-bottom:6px">¿Dónde pongo el contenido?</div>
+          <div style="color:#52525b;line-height:1.85">
+            Depende de a quién le pertenece y si cambia. Hay tres casos:<br><br>
+            <span style="color:#18181b;font-weight:500">Lo ven todos igual</span> — los textos de la UI, los labels, los mensajes de error. Van en el código, los escribís vos.<br><br>
+            <span style="color:#18181b;font-weight:500">Lo carga el usuario y es suyo</span> — su nombre, su historial, sus pedidos. Es personal, cambia por usuario. Vive en una base de datos.<br><br>
+            <span style="color:#18181b;font-weight:500">Lo genera el sistema</span> — el estado de una compra, una notificación, un precio actualizado. Nadie lo escribe a mano: se produce solo según lo que pasa en la operación. También vive en una base de datos.
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:13px;font-weight:600;color:#18181b;margin-bottom:6px">¿Cómo reacciona la interfaz a lo que pasa?</div>
+          <div style="color:#52525b;line-height:1.85">
+            Todo lo que vimos es estático — el componente siempre se ve igual. En una app real cambia: un pedido pasa de "en preparación" a "despachado", un usuario sube una foto de perfil, un carrito se actualiza. Eso es <strong style="color:#18181b">state</strong> — la parte del componente que puede cambiar en respuesta a algo. Cuando ese "algo" viene de un servidor, el frontend necesita pedírselo. Ahí empieza el backend.
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #e4e4e7;padding-top:16px;color:#71717a;font-size:13px;line-height:1.7">
+          Frontend → Backend → Base de datos. El backend es el intermediario: decide qué datos puede ver cada usuario y devuelve solo lo que corresponde. Sin él, cualquiera podría acceder a los datos de cualquier otro.
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function showStep(n, btn) {
+      document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.getElementById('step-' + n).classList.add('active');
+      btn.classList.add('active');
+    }
+    function showFramework(name, btn) {
+      document.querySelectorAll('.fw-panel').forEach(p => { p.style.display = 'none'; });
+      document.querySelectorAll('[id^="fwbtn-"]').forEach(b => { b.style.background = 'transparent'; b.style.color = '#71717a'; });
+      const panel = document.getElementById('fw-' + name);
+      panel.style.display = 'grid';
+      btn.style.background = '#18181b';
+      btn.style.color = 'white';
+    }
+  </script>
+</body>
+</html>

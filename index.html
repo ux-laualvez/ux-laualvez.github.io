@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laura Alvez — recursos de diseño y código</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      --surface: #ffffff;
+      --surface-subtle: #f4f4f5;
+      --text-primary: #09090b;
+      --text-secondary: #52525b;
+      --text-tertiary: #a1a1aa;
+      --border: #e4e4e7;
+      --accent: #2563eb;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--surface-subtle);
+      color: var(--text-primary);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 80px 24px 120px;
+    }
+
+    header {
+      margin-bottom: 56px;
+    }
+
+    .name {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+      margin: 0 0 6px;
+    }
+
+    .tagline {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin: 0 0 16px;
+    }
+
+    .list {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .list-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      background: var(--surface);
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.1s;
+    }
+
+    .list-item:hover {
+      background: #fafafa;
+    }
+
+    .item-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .item-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .item-meta {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+
+    .arrow {
+      color: var(--text-tertiary);
+      font-size: 16px;
+      line-height: 1;
+    }
+
+    footer {
+      margin-top: 80px;
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <p class="name">Laura Alvez</p>
+      <p class="tagline">UX designer — recursos de diseño y código</p>
+    </header>
+
+    <p class="section-label">Guías</p>
+    <div class="list">
+      <a href="comparacion-css-tailwind.html" class="list-item">
+        <div class="item-info">
+          <span class="item-title">CSS vs Tailwind — guía visual</span>
+          <span class="item-meta">Comparación práctica de los dos enfoques</span>
+        </div>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <footer>ux-laualvez.github.io</footer>
+  </div>
+</body>
+</html>
